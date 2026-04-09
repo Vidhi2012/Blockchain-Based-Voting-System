@@ -1,4 +1,4 @@
-#🗳️ Blockchain-Based Voting System
+🗳️ Blockchain-Based Voting System
 
 A secure, transparent, and decentralized voting system built using blockchain technology to ensure fair and tamper-proof elections.
 
