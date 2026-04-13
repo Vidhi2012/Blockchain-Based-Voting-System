@@ -1,0 +1,16 @@
+{
+  "name": "voting-blockchain",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hardhat — compile, test, and deploy Solidity contracts",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy": "hardhat run scripts/deploy.js --network ganache",
+    "deploy:local": "hardhat run scripts/deploy.js --network localhost"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.17"
+  }
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign up — Blockchain Voting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/auth.css" />
+  </head>
+  <body class="auth-page">
+    <div class="auth-bg" aria-hidden="true"></div>
+    <div class="auth-layout">
+      <aside class="auth-aside">
+        <div class="auth-aside-inner">
+          <p class="auth-brand">On-chain integrity</p>
+          <h1>Join the network. One identity, one vote.</h1>
+          <p>
+            Register to get a voter profile. Your wallet can be linked later so casts are attributed to your Ethereum
+            address.
+          </p>
+          <div class="auth-blocks" aria-hidden="true">
+            <div class="auth-block">BLK <span>chain</span></div>
+            <div class="auth-block">SIG <span>ed25519</span></div>
+            <div class="auth-block">TTL <span>session</span></div>
+          </div>
+        </div>
+      </aside>
+      <main class="auth-main">
+        <div class="auth-card">
+          <div class="auth-card-header">
+            <h2>Create account</h2>
+            <p>Set up your email and password. API wiring comes next.</p>
+          </div>
+          <div id="auth-message" class="auth-message" role="alert"></div>
+          <form id="signup-form" novalidate>
+            <div class="auth-field">
+              <label for="name">Full name</label>
+              <input id="name" name="name" type="text" autocomplete="name" placeholder="Ada Lovelace" required />
+            </div>
+            <div class="auth-field">
+              <label for="email">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                placeholder="you@institution.org"
+                required
+              />
+            </div>
+            <div class="auth-field">
+              <label for="password">Password</label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autocomplete="new-password"
+                placeholder="At least 8 characters"
+                minlength="8"
+                required
+              />
+            </div>
+            <div class="auth-field">
+              <label for="confirm">Confirm password</label>
+              <input
+                id="confirm"
+                name="confirm"
+                type="password"
+                autocomplete="new-password"
+                placeholder="Repeat password"
+                required
+              />
+            </div>
+            <button type="submit" class="auth-submit">Create account</button>
+          </form>
+          <div class="auth-footer">
+            Already registered? <a href="signin.html">Sign in</a>
+          </div>
+          <a class="auth-home" href="index.html">← Back to app</a>
+        </div>
+      </main>
+    </div>
+    <script src="js/auth.js"></script>
+  </body>
+</html>

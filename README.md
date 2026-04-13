@@ -31,7 +31,14 @@ Solidity
 
 🛠️ Tools
 MetaMask
-Truffle
+Hardhat (Solidity: compile, test, deploy)
+
+Quick start
+- Root: `npm install` (backend workspace)
+- Blockchain: `npm run install:chain` or `cd blockchain && npm install`
+- Backend: copy `backend/.env.example` to `backend/.env`, start MongoDB, then `npm run dev:backend`
+- Contracts: start Ganache on port **7545**, then `npm run compile:chain` and `npm run deploy:chain`
+- Frontend: open `frontend/index.html` or serve the `frontend` folder
 
 ⚙️ How It Works
 User registers and logs in through the system
@@ -41,24 +48,3 @@ The vote is recorded as a transaction on the blockchain
 Smart contract ensures vote validity and prevents duplication
 Results are displayed transparently
 
-🎯 Objectives
-To build a decentralized voting system
-To ensure security, transparency, and trust
-To eliminate reliance on a central authority
-
-⚖️ Advantages
- Highly secure and tamper-proof
- Decentralized and trustless
- Transparent and auditable
- Efficient and reliable
- 
-⚠️ Limitations
-Gas fees in blockchain transactions
-Requires internet and basic technical knowledge
-Scalability challenges for large-scale elections
-
-🔮 Future Scope
-Integration with national identity systems
-Mobile-based voting applications
-Use of Layer-2 solutions for scalability
-Enhanced privacy mechanisms
