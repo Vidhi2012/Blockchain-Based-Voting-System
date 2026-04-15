@@ -1,61 +1,77 @@
-(function () {
-  const signinForm = document.getElementById("signin-form");
-  const signupForm = document.getElementById("signup-form");
-  const messageEl = document.getElementById("auth-message");
+let currentAccount = "";
 
-  function showMessage(text, type) {
-    if (!messageEl) return;
-    messageEl.textContent = text;
-    messageEl.className = "auth-message is-visible auth-message--" + type;
-  }
+// CONNECT WALLET
+const connectBtn = document.getElementById("connectWallet");
+const walletDisplay = document.getElementById("walletAddress");
 
-  function clearMessage() {
-    if (!messageEl) return;
-    messageEl.textContent = "";
-    messageEl.className = "auth-message";
-  }
+if (connectBtn) {
+  connectBtn.onclick = async () => {
+    if (window.ethereum) {
+      const accounts = await ethereum.request({
+        method: "eth_requestAccounts",
+      });
 
-  if (signinForm) {
-    signinForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      clearMessage();
-      const email = signinForm.querySelector("#email").value.trim();
-      const password = signinForm.querySelector("#password").value;
-      if (!email || !password) {
-        showMessage("Please fill in all fields.", "error");
-        return;
-      }
-      showMessage("Demo: no API yet. Redirecting to the app…", "ok");
-      setTimeout(function () {
-        window.location.href = "index.html";
-      }, 900);
-    });
-  }
+      currentAccount = accounts[0];
+      walletDisplay.innerText = "Connected: " + currentAccount;
+    } else {
+      alert("Install MetaMask");
+    }
+  };
+}
 
-  if (signupForm) {
-    signupForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      clearMessage();
-      const name = signupForm.querySelector("#name").value.trim();
-      const email = signupForm.querySelector("#email").value.trim();
-      const password = signupForm.querySelector("#password").value;
-      const confirm = signupForm.querySelector("#confirm").value;
-      if (!name || !email || !password || !confirm) {
-        showMessage("Please fill in all fields.", "error");
-        return;
-      }
-      if (password.length < 8) {
-        showMessage("Password must be at least 8 characters.", "error");
-        return;
-      }
-      if (password !== confirm) {
-        showMessage("Passwords do not match.", "error");
-        return;
-      }
-      showMessage("Demo: account created locally. Redirecting…", "ok");
-      setTimeout(function () {
-        window.location.href = "signin.html";
-      }, 900);
-    });
-  }
-})();
+// SIGNUP LOGIC
+const registerBtn = document.getElementById("registerBtn");
+
+if (registerBtn) {
+  registerBtn.onclick = () => {
+    const prn = document.getElementById("prn").value;
+    const status = document.getElementById("status");
+
+    if (!prn || !currentAccount) {
+      status.innerText = "Fill PRN and connect wallet";
+      return;
+    }
+
+    let users = JSON.parse(localStorage.getItem("users")) || {};
+
+    if (users[prn]) {
+      status.innerText = "User already exists!";
+      return;
+    }
+
+    users[prn] = currentAccount;
+
+    localStorage.setItem("users", JSON.stringify(users));
+
+    status.innerText = "Registration successful ✅";
+  };
+}
+
+// LOGIN LOGIC
+const loginBtn = document.getElementById("loginBtn");
+
+if (loginBtn) {
+  loginBtn.onclick = () => {
+    const prn = document.getElementById("loginPrn").value;
+    const status = document.getElementById("status");
+
+    let users = JSON.parse(localStorage.getItem("users")) || {};
+
+    if (!users[prn]) {
+      status.innerText = "User not found!";
+      return;
+    }
+
+    if (users[prn] !== currentAccount) {
+      status.innerText = "Wallet does not match!";
+      return;
+    }
+
+    status.innerText = "Login successful 🚀";
+
+    // Redirect (future)
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 1500);
+  };
+}

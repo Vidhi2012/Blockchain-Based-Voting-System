@@ -1,74 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign in — Blockchain Voting</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/auth.css" />
-  </head>
-  <body class="auth-page">
-    <div class="auth-bg" aria-hidden="true"></div>
-    <div class="auth-layout">
-      <aside class="auth-aside">
-        <div class="auth-aside-inner">
-          <p class="auth-brand">Distributed ledger · voting</p>
-          <h1>Verify once. Vote with cryptographic assurance.</h1>
-          <p>
-            Sign in to link your account to the app. Wallet connection for on-chain actions happens after
-            authentication.
-          </p>
-          <div class="auth-blocks" aria-hidden="true">
-            <div class="auth-block">GEN <span>#01</span></div>
-            <div class="auth-block">HASH <span>0x···</span></div>
-            <div class="auth-block">NET <span>L2</span></div>
-          </div>
+<html>
+<head>
+    <title>Sign In - ChainSankalp</title>
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+
+<body>
+
+<div class="auth-container">
+    <h2>Welcome Back 👋</h2>
+    <p>Login using your PRN (Voter ID)</p>
+
+    <form>
+        <div class="input-group">
+            <label>PRN Number</label>
+            <input type="text" placeholder="Enter your PRN" required>
         </div>
-      </aside>
-      <main class="auth-main">
-        <div class="auth-card">
-          <div class="auth-card-header">
-            <h2>Sign in</h2>
-            <p>Enter your credentials to access the voting dashboard.</p>
-          </div>
-          <div id="auth-message" class="auth-message" role="alert"></div>
-          <form id="signin-form" novalidate>
-            <div class="auth-field">
-              <label for="email">Email</label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autocomplete="email"
-                placeholder="you@institution.org"
-                required
-              />
-            </div>
-            <div class="auth-field">
-              <label for="password">Password</label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autocomplete="current-password"
-                placeholder="••••••••"
-                required
-              />
-            </div>
-            <button type="submit" class="auth-submit">Sign in</button>
-          </form>
-          <div class="auth-footer">
-            New here? <a href="signup.html">Create an account</a>
-          </div>
-          <a class="auth-home" href="index.html">← Back to app</a>
+
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" placeholder="Enter password" required>
         </div>
-      </main>
+
+        <button class="auth-btn">Sign In</button>
+    </form>
+
+    <div class="switch-link">
+        New here? <a href="signup.html">Create Account</a>
     </div>
-    <script src="js/auth.js"></script>
-  </body>
+
+    <div class="bharat-tag">
+        🇮🇳 Made in Bharat | Secure Blockchain Voting
+    </div>
+</div>
+
+<script src="js/auth.js"></script>
+</body>
 </html>
