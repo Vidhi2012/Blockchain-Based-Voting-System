@@ -1,77 +1,115 @@
+// Store current wallet
 let currentAccount = "";
 
+// =====================
 // CONNECT WALLET
-const connectBtn = document.getElementById("connectWallet");
-const walletDisplay = document.getElementById("walletAddress");
-
-if (connectBtn) {
-  connectBtn.onclick = async () => {
+// =====================
+async function connectWallet() {
     if (window.ethereum) {
-      const accounts = await ethereum.request({
-        method: "eth_requestAccounts",
-      });
-
-      currentAccount = accounts[0];
-      walletDisplay.innerText = "Connected: " + currentAccount;
+        try {
+            const accounts = await ethereum.request({
+                method: "eth_requestAccounts",
+            });
+            currentAccount = accounts[0];
+            alert("Wallet Connected: " + currentAccount);
+        } catch (err) {
+            alert("Connection Failed!");
+        }
     } else {
-      alert("Install MetaMask");
+        alert("Please install MetaMask!");
     }
-  };
 }
 
+// =====================
 // SIGNUP LOGIC
-const registerBtn = document.getElementById("registerBtn");
+// =====================
+const signupForm = document.getElementById("signupForm");
 
-if (registerBtn) {
-  registerBtn.onclick = () => {
-    const prn = document.getElementById("prn").value;
-    const status = document.getElementById("status");
+if (signupForm) {
+    signupForm.addEventListener("submit", function (e) {
+        e.preventDefault();
 
-    if (!prn || !currentAccount) {
-      status.innerText = "Fill PRN and connect wallet";
-      return;
-    }
+        const name = document.querySelector("input[type='text']").value;
+        const prn = document.getElementById("prn").value;
+        const phone = document.getElementById("phone").value;
+        const email = document.querySelector("input[type='email']").value;
+        const gender = document.querySelector("select").value;
+        const department = document.querySelector("select")[1].value;
+        const year = document.querySelectorAll("select")[1].value;
+        const password = document.getElementById("password").value;
 
-    let users = JSON.parse(localStorage.getItem("users")) || {};
+        // VALIDATIONS
+        if (prn.length !== 14 || isNaN(prn)) {
+            alert("PRN must be 14 digits");
+            return;
+        }
 
-    if (users[prn]) {
-      status.innerText = "User already exists!";
-      return;
-    }
+        if (phone.length !== 10 || isNaN(phone)) {
+            alert("Phone must be 10 digits");
+            return;
+        }
 
-    users[prn] = currentAccount;
+        
+        let users = JSON.parse(localStorage.getItem("users")) || {};
 
-    localStorage.setItem("users", JSON.stringify(users));
+        if (users[prn]) {
+            alert("User already exists!");
+            return;
+        }
 
-    status.innerText = "Registration successful ✅";
-  };
+        // STORE USER
+        users[prn] = {
+            name,
+            phone,
+            email,
+            gender,
+            year,
+            password,
+            wallet: currentAccount,
+        };
+
+        localStorage.setItem("users", JSON.stringify(users));
+
+        alert("Signup Successful ✅");
+
+        // redirect to signin
+        window.location.href = "signin.html";
+    });
 }
 
-// LOGIN LOGIC
-const loginBtn = document.getElementById("loginBtn");
+// =====================
+// SIGNIN LOGIC
+// =====================
+const signinForm = document.getElementById("signinForm");
 
-if (loginBtn) {
-  loginBtn.onclick = () => {
-    const prn = document.getElementById("loginPrn").value;
-    const status = document.getElementById("status");
+if (signinForm) {
+    signinForm.addEventListener("submit", function (e) {
+        e.preventDefault();
 
-    let users = JSON.parse(localStorage.getItem("users")) || {};
+        const prn = document.getElementById("signin-prn").value;
+        const password = document.getElementById("signin-password").value;
 
-    if (!users[prn]) {
-      status.innerText = "User not found!";
-      return;
-    }
+        let users = JSON.parse(localStorage.getItem("users")) || {};
 
-    if (users[prn] !== currentAccount) {
-      status.innerText = "Wallet does not match!";
-      return;
-    }
+        // CHECK USER
+        if (!users[prn]) {
+            alert("User not found!");
+            return;
+        }
 
-    status.innerText = "Login successful 🚀";
+        // PASSWORD CHECK
+        if (users[prn].password !== password) {
+            alert("Incorrect password!");
+            return;
+        }
 
-    // Redirect (future)
-    setTimeout(() => {
-      window.location.href = "index.html";
-    }, 1500);
-  };
+       
+
+        alert("Login Successful 🚀");
+
+        // Redirect to voting page
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1000);
+    });
 }

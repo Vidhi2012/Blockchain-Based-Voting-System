@@ -1,3 +1,4 @@
+/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -6,36 +7,36 @@
 }
 
 body {
-  background: #0a0a0a;
+  background: radial-gradient(circle at top, #0f0f1a, #050505);
   color: white;
-}
-
-.about {
-  padding: 80px 20px;
-  text-align: center;
-  max-width: 800px;
-  margin: auto;
-}
-
-.about p {
-  color: #ccc;
-  margin-top: 15px;
-  line-height: 1.6;
+  overflow-x: hidden;
 }
 
 /* NAVBAR */
 .navbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 20px 60px;
   background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.logo {
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .navbar a {
   margin: 0 15px;
-  color: white;
+  color: #ccc;
   text-decoration: none;
+  transition: 0.3s;
+}
+
+.navbar a:hover {
+  color: #00d4ff;
 }
 
 /* HERO */
@@ -45,54 +46,83 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: radial-gradient(circle at top, #1a1a2e, #0a0a0a);
+  background: radial-gradient(circle at top, #1a1a2e, #050505);
   text-align: center;
+  padding: 0 20px;
 }
 
 .hero h1 {
-  font-size: 55px;
+  font-size: 60px;
   background: linear-gradient(90deg, #6c63ff, #00d4ff);
   -webkit-background-clip: text;
   color: transparent;
 }
 
 .hero p {
-  margin-top: 10px;
-  color: #ccc;
+  margin-top: 15px;
+  color: #bbb;
+  max-width: 700px;
+  line-height: 1.6;
 }
 
 .tagline {
-  margin-top: 10px;
+  margin-top: 15px;
   color: #ff9933;
   font-size: 14px;
+  letter-spacing: 1px;
 }
 
 /* BUTTONS */
 .hero-buttons {
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 .btn-primary {
-  padding: 12px 25px;
+  padding: 12px 28px;
   border-radius: 30px;
   border: none;
   background: linear-gradient(90deg, #6c63ff, #00d4ff);
   color: white;
   cursor: pointer;
   transition: 0.3s;
+  box-shadow: 0 0 15px rgba(0,212,255,0.5);
 }
 
 .btn-primary:hover {
-  transform: scale(1.1);
+  transform: scale(1.08);
+  box-shadow: 0 0 25px rgba(0,212,255,0.8);
 }
 
 .btn-secondary {
-  padding: 12px 25px;
+  padding: 12px 28px;
   border-radius: 30px;
-  border: 1px solid white;
+  border: 1px solid rgba(255,255,255,0.4);
   margin-left: 10px;
   text-decoration: none;
   color: white;
+  transition: 0.3s;
+}
+
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* ABOUT */
+.about {
+  padding: 80px 20px;
+  text-align: center;
+  max-width: 800px;
+  margin: auto;
+}
+
+.about h2 {
+  margin-bottom: 15px;
+}
+
+.about p {
+  color: #bbb;
+  margin-top: 15px;
+  line-height: 1.7;
 }
 
 /* FEATURES */
@@ -108,18 +138,22 @@ body {
   margin-top: 40px;
 }
 
+/* CARD */
 .card {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.06);
   padding: 25px;
-  margin: 10px;
-  border-radius: 15px;
-  width: 200px;
-  transition: 0.3s;
+  margin: 12px;
+  border-radius: 20px;
+  width: 220px;
+  transition: 0.4s;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .card:hover {
-  transform: translateY(-10px);
-  background: rgba(255,255,255,0.15);
+  transform: translateY(-12px) scale(1.03);
+  background: rgba(255,255,255,0.12);
+  box-shadow: 0 0 20px rgba(0,212,255,0.3);
 }
 
 /* SECURITY */
@@ -128,26 +162,54 @@ body {
   text-align: center;
 }
 
+.security p {
+  color: #bbb;
+  max-width: 700px;
+  margin: 10px auto;
+  line-height: 1.6;
+}
+
+/* PROCESS SECTION */
+.process {
+  padding: 80px 20px;
+  text-align: center;
+}
+
 /* 🇮🇳 BHARAT SECTION */
 .bharat {
   padding: 60px 20px;
   text-align: center;
-  background: #111;
+  background: linear-gradient(180deg, #0a0a0a, #111);
   border-top: 1px solid rgba(255,255,255,0.1);
 }
 
 .bharat h2 {
   color: #ff9933;
+  margin-bottom: 10px;
 }
 
 .bharat p {
-  color: #ccc;
+  color: #bbb;
   margin-top: 10px;
+  line-height: 1.6;
 }
 
 /* FOOTER */
 .footer-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 30px;
+  text-align: center;
+  background: #050505;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-content p {
+  color: #777;
+  font-size: 14px;
+}
+
+/* WALLET TEXT */
+#walletAddress {
+  margin-top: 15px;
+  color: #00ffcc;
+  font-size: 14px;
 }
