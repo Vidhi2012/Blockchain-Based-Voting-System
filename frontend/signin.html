@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign In - ChainSankalp</title>
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+
+<body>
+
+<div class="auth-container">
+    <h2>Welcome Back 👋</h2>
+    <p>Login using your PRN (Voter ID)</p>
+
+    <form id="signinForm">
+
+        <!-- PRN -->
+        <div class="input-group">
+            <label>PRN Number</label>
+            <input type="text" id="signin-prn" placeholder="Enter 14-digit PRN" maxlength="14" required>
+        </div>
+
+        <!-- Password -->
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="signin-password" placeholder="Enter password" required>
+        </div>
+
+        <!-- Button -->
+        <button class="auth-btn">Sign In</button>
+    </form>
+
+    <div class="switch-link">
+        New here? <a href="signup.html">Create Account</a>
+    </div>
+
+    <div class="bharat-tag">
+        🇮🇳 Made in Bharat | Secure Blockchain Voting
+    </div>
+</div>
+
+<script src="js/auth.js"></script>
+
+</body>
+</html>

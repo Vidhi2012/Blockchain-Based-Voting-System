@@ -1,13 +1,19 @@
 {
-  "name": "miniproject",
+  "name": "blockchain-voting-system",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "description": "Blockchain voting — frontend, backend, MongoDB, smart contracts (Hardhat)",
+  "workspaces": [
+    "backend"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs"
+    "dev:backend": "npm run dev --workspace=voting-backend",
+    "start:backend": "npm start --workspace=voting-backend",
+    "seed": "npm run seed --workspace=voting-backend",
+    "install:chain": "npm install --prefix blockchain",
+    "compile:chain": "npm run compile --prefix blockchain",
+    "deploy:chain": "npm run deploy --prefix blockchain",
+    "test:chain": "npm run test --prefix blockchain",
+    "migrate:chain": "npm run deploy --prefix blockchain"
+  }
 }
