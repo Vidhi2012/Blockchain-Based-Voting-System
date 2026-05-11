@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Candidate Dashboard</title>
+
+    <!-- ✅ SAME GLOBAL CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/candidate-dashboard.css">
+</head>
+
+<body>
+
+    <!-- 🔝 NAVBAR -->
+    <div class="navbar">
+        <h2 id="logoText" class="logo">⛓ ChainSankalp</h2>
+    
+        <div class="nav-links">
+            <nav>
+                <a href="#">Home</a>
+                <a href="#features">Features</a>
+                <a href="#security">Security</a>
+                <a href="#" style="color:red;">Home</a>
+                <a href="signin.html" id="loginLink">Login</a>
+              
+                <a href="candidate-dashboard.html" id="profileLink" style="display:none;">Profile</a>
+              
+                <a href="#" id="logoutLink" style="display:none;">Logout</a>
+              </nav>
+        </div>
+    </div>
+
+    <!-- 🔽 DASHBOARD -->
+    <div class="dashboard-container">
+
+        <h2>🚀 Candidate Dashboard</h2>
+
+        <div id="candidateCard" class="dashboard-card">
+
+            <!-- ✅ PROFILE IMAGE -->
+            <img id="profile-img" class="profile-img" src="images/default-user.png" alt="Profile Image"/>
+        
+            <h2 id="candidateName"></h2>
+        
+            <span id="status"></span>
+        
+            <p><b>Position:</b> <span id="position"></span></p>
+            <p><b>Department:</b> <span id="department"></span></p>
+            <p><b>Year:</b> <span id="year"></span></p>
+        
+            <h3>🏆 Achievements</h3>
+            <p id="achievements"></p>
+        
+            <h3>📜 Manifesto</h3>
+            <p id="manifesto"></p>
+        
+        </div>
+
+    </div>
+
+    <!-- ✅ IMPORTANT: LOAD app.js FIRST -->
+    <script src="js/app.js"></script>
+
+    <!-- Then dashboard logic -->
+    <script src="js/candidate-dashboard.js"></script>
+
+</body>
+</html>

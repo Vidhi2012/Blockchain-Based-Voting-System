@@ -29,14 +29,20 @@ if (signupForm) {
     signupForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        const name = document.querySelector("input[type='text']").value;
+        // GET VALUES (CORRECT WAY)
+        const name = document.getElementById("name").value;
         const prn = document.getElementById("prn").value;
         const phone = document.getElementById("phone").value;
-        const email = document.querySelector("input[type='email']").value;
-        const gender = document.querySelector("select").value;
-        const department = document.querySelector("select")[1].value;
-        const year = document.querySelectorAll("select")[1].value;
+        const email = document.getElementById("email").value;
+        const gender = document.getElementById("gender").value;
+        const department = document.getElementById("department").value;
+        const year = document.getElementById("year").value;
+        const role = document.getElementById("role").value;
+        const manifesto = document.getElementById("manifesto").value;
+        const achievements = document.getElementById("achievements").value;
         const password = document.getElementById("password").value;
+
+        const file = document.getElementById("profilePic").files[0];
 
         // VALIDATIONS
         if (prn.length !== 14 || isNaN(prn)) {
@@ -49,7 +55,6 @@ if (signupForm) {
             return;
         }
 
-        
         let users = JSON.parse(localStorage.getItem("users")) || {};
 
         if (users[prn]) {
@@ -57,23 +62,45 @@ if (signupForm) {
             return;
         }
 
-        // STORE USER
-        users[prn] = {
-            name,
-            phone,
-            email,
-            gender,
-            year,
-            password,
-            wallet: currentAccount,
-        };
+        // HANDLE IMAGE
+        if (file) {
+            const reader = new FileReader();
 
-        localStorage.setItem("users", JSON.stringify(users));
+            reader.onload = function () {
+                const profileBase64 = reader.result;
 
-        alert("Signup Successful ✅");
+                saveUser(profileBase64);
+            };
 
-        // redirect to signin
-        window.location.href = "signin.html";
+            reader.readAsDataURL(file);
+        } else {
+            saveUser("");
+        }
+
+        // SAVE FUNCTION
+        function saveUser(profilePic) {
+            users[prn] = {
+                name,
+                prn,
+                phone,
+                email,
+                gender,
+                department,
+                year,
+                role,
+                manifesto,
+                achievements,
+                profilePic,
+                password,
+                wallet: currentAccount,
+            };
+
+            localStorage.setItem("users", JSON.stringify(users));
+
+            alert("Signup Successful ✅");
+
+            window.location.href = "signin.html";
+        }
     });
 }
 
@@ -91,25 +118,49 @@ if (signinForm) {
 
         let users = JSON.parse(localStorage.getItem("users")) || {};
 
-        // CHECK USER
         if (!users[prn]) {
             alert("User not found!");
             return;
         }
 
-        // PASSWORD CHECK
         if (users[prn].password !== password) {
             alert("Incorrect password!");
             return;
         }
 
-       
+        // STORE LOGGED IN USER (IMPORTANT FOR DASHBOARD)
+        localStorage.setItem("loggedInUser", JSON.stringify(users[prn]));
 
         alert("Login Successful 🚀");
 
-        // Redirect to voting page
         setTimeout(() => {
             window.location.href = "index.html";
         }, 1000);
     });
+}
+
+// =====================
+// FORGOT PASSWORD
+// =====================
+function forgotPassword() {
+    const prn = prompt("Enter your PRN:");
+    let users = JSON.parse(localStorage.getItem("users")) || {};
+
+    if (!users[prn]) {
+        alert("User not found!");
+        return;
+    }
+
+    const newPass = prompt("Enter new password:");
+    
+    if (!newPass) {
+        alert("Password cannot be empty!");
+        return;
+    }
+
+    users[prn].password = newPass;
+
+    localStorage.setItem("users", JSON.stringify(users));
+
+    alert("Password updated successfully ✅");
 }

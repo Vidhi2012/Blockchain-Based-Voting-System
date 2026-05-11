@@ -1,0 +1,101 @@
+/* 🌌 MATCH HOME PAGE BACKGROUND */
+body {
+    background: radial-gradient(circle at top, #0f0f1a, #050505);
+    color: white;
+}
+
+/* Navbar container */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+}
+
+/* Nav layout */
+.navbar nav {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+/* Links */
+.navbar nav a {
+    color: #ccc !important;
+    text-decoration: none !important;
+    font-size: 16px !important;
+}
+
+.navbar nav a:hover {
+    color: #00d4ff !important;
+}
+/* 🔝 DASHBOARD CONTAINER */
+.dashboard-container {
+    margin-top: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* 🧊 SAME CARD STYLE AS HOME .card */
+.dashboard-card {
+    margin-top: 30px;
+    width: 320px;
+    padding: 25px;
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(0,212,255,0.2);
+
+    transition: 0.4s;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 25px rgba(0,212,255,0.4);
+}
+
+/* 📸 PROFILE IMAGE */
+.profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #00d4ff;
+    margin-bottom: 15px;
+}
+
+/* 🔘 STATUS */
+.status {
+    display: inline-block;
+    padding: 6px 15px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    margin: 10px 0;
+}
+
+.status.pending {
+    background: orange;
+    color: black;
+}
+
+.status.approved {
+    background: #00d4ff;
+    color: black;
+}
+
+/* 📊 TEXT ALIGN */
+.dashboard-card p {
+    color: #bbb;
+    margin: 6px 0;
+}
+
+.dashboard-card h3,
+.dashboard-card h4 {
+    margin-top: 12px;
+    color: white;
+}

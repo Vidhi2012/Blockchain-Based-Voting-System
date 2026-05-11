@@ -1,4 +1,50 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const currentUser = JSON.parse(localStorage.getItem("loggedInUser")); // ✅ FIXED
+
+  const logo = document.getElementById("logoText");
+  const loginLink = document.getElementById("loginLink");
+  const profileBtn = document.getElementById("profileBtn");
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  // ✅ Format Name
+  const formatName = (name) => {
+    return name
+      ? name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
+      : "";
+  };
+
+  if (currentUser) {
+    // ✅ Welcome text
+    if (logo) {
+      logo.textContent = `Welcome, ${formatName(currentUser.name)}!`;
+    }
+
+    // ✅ Toggle navbar
+    if (loginLink) loginLink.style.display = "none";
+    if (profileBtn) profileBtn.style.display = "inline-block";
+    if (logoutBtn) logoutBtn.style.display = "inline-block";
+
+    // ✅ Profile button → dashboard
+    if (profileBtn) {
+      profileBtn.onclick = () => {
+        window.location.href = "candidate-dashboard.html"; // ✅ simplified
+      };
+    }
+
+    // ✅ Logout
+    if (logoutBtn) {
+      logoutBtn.onclick = () => {
+        localStorage.removeItem("loggedInUser"); // ✅ FIXED
+        localStorage.removeItem("wallet");
+        window.location.href = "signin.html";
+      };
+    }
+  }
+});
+
+// =======================
 // GLOBAL VARIABLE
+// =======================
 let currentAccount = "";
 
 // ELEMENTS
@@ -21,11 +67,10 @@ async function connectWallet() {
 
     currentAccount = accounts[0];
 
-    // Save wallet in localStorage (important)
+    // Save wallet
     localStorage.setItem("wallet", currentAccount);
 
     updateUI();
-
   } catch (err) {
     console.log(err);
     alert("Connection failed!");
@@ -51,14 +96,14 @@ function updateUI() {
 }
 
 // =======================
-// SHORT ADDRESS (UI)
+// SHORT ADDRESS
 // =======================
 function shortenAddress(address) {
   return address.slice(0, 6) + "..." + address.slice(-4);
 }
 
 // =======================
-// AUTO CONNECT (on reload)
+// AUTO CONNECT
 // =======================
 window.addEventListener("load", () => {
   const savedWallet = localStorage.getItem("wallet");
@@ -75,7 +120,6 @@ window.addEventListener("load", () => {
 if (window.ethereum) {
   ethereum.on("accountsChanged", (accounts) => {
     if (accounts.length === 0) {
-      // User disconnected
       currentAccount = "";
       localStorage.removeItem("wallet");
       location.reload();
@@ -87,7 +131,9 @@ if (window.ethereum) {
   });
 }
 
+// =======================
 // BUTTON CLICK
+// =======================
 if (btn) {
   btn.onclick = connectWallet;
 }
