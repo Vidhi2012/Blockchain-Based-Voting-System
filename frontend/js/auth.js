@@ -63,19 +63,26 @@ if (signupForm) {
         }
 
         // HANDLE IMAGE
-        if (file) {
-            const reader = new FileReader();
+        const fileInput = document.getElementById("photo");
 
-            reader.onload = function () {
-                const profileBase64 = reader.result;
+fileInput.addEventListener("change", function () {
+    const file = fileInput.files[0];
+    const reader = new FileReader();
 
-                saveUser(profileBase64);
-            };
+    reader.onload = function () {
+        const base64Image = reader.result;
 
-            reader.readAsDataURL(file);
-        } else {
-            saveUser("");
-        }
+        // Save in localStorage with user data
+        let user = JSON.parse(localStorage.getItem("loggedInUser"));
+        user.profilePhoto = base64Image;
+
+        localStorage.setItem("loggedInUser", JSON.stringify(user));
+    };
+
+    if (file) {
+        reader.readAsDataURL(file);
+    }
+});
 
         // SAVE FUNCTION
         function saveUser(profilePic) {
@@ -105,7 +112,7 @@ if (signupForm) {
 }
 
 // =====================
-// SIGNIN LOGIC
+// SIGNIN LOGIC (FIXED)
 // =====================
 const signinForm = document.getElementById("signinForm");
 
@@ -128,17 +135,23 @@ if (signinForm) {
             return;
         }
 
-        // STORE LOGGED IN USER (IMPORTANT FOR DASHBOARD)
+        // ✅ STORE LOGGED IN USER
         localStorage.setItem("loggedInUser", JSON.stringify(users[prn]));
 
         alert("Login Successful 🚀");
 
+        // ✅ ROLE-BASED REDIRECT (FIXED PART)
         setTimeout(() => {
-            window.location.href = "index.html";
+            const user = users[prn];
+
+            if (user.role === "admin") {
+                window.location.href = "admin.html";
+            } else {
+                window.location.href = "index.html";
+            }
         }, 1000);
     });
 }
-
 // =====================
 // FORGOT PASSWORD
 // =====================

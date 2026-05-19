@@ -6,10 +6,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const logoutLink = document.getElementById("logoutLink");
 
     // 🔒 Check login
-    if (!currentUser) {
-        window.location.href = "signin.html";
-        return;
-    }
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+
+if (!user || user.role !== "candidate") {
+    alert("Access denied");
+    window.location.href = "signin.html";
+}
 
     // ✅ Navbar control
     if (loginLink) loginLink.style.display = "none";
@@ -19,13 +21,24 @@ document.addEventListener("DOMContentLoaded", () => {
     // ✅ Status
     const statusClass =
         currentUser.status === "approved" ? "approved" : "pending";
-
+        const user = JSON.parse(localStorage.getItem("loggedInUser"));
+        const users = JSON.parse(localStorage.getItem("users"));
+        
+        const statusDiv = document.getElementById("status");
+        
+        if (users[user.prn].approved) {
+            statusDiv.innerHTML = "Status: Approved ✅";
+        } else {
+            statusDiv.innerHTML = "Status: Pending ⏳";
+        }
     // ✅ Profile image
-    const profileImage =
-        currentUser.profilePic && currentUser.profilePic !== ""
-            ? currentUser.profilePic
-            : "https://via.placeholder.com/130";
-
+    document.addEventListener("DOMContentLoaded", () => {
+        const user = JSON.parse(localStorage.getItem("loggedInUser"));
+    
+        if (user && user.profilePhoto) {
+            document.getElementById("profileImg").src = user.profilePhoto;
+        }
+    });
     // ✅ Fill data (NO innerHTML overwrite)
     document.getElementById("profile-img").src = profileImage;
 
