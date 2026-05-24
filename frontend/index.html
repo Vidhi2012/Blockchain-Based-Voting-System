@@ -1,162 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ChainSankalp</title>
-
+  <title>ChainSankalp — Blockchain Voting</title>
   <link rel="stylesheet" href="css/styles.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap" rel="stylesheet"/>
 </head>
-
 <body>
 
+<!-- ══════════ NAVBAR ══════════ -->
 <header class="navbar">
-  <h2 id="logoText" class="logo">⛓ ChainSankalp</h2>
-
+  <a href="index.html" class="logo">⛓ ChainSankalp</a>
   <nav>
-    <a href="#">Home</a>
     <a href="#features">Features</a>
     <a href="#security">Security</a>
-
-    <!-- Login -->
+    <a href="#how">How It Works</a>
     <a href="signin.html" id="loginLink">Login</a>
-
-    <!-- Profile -->
-    <a href="#" id="profileBtn" style="display:none;">Profile</a>
-
-    <!-- Logout -->
-    <a href="#" id="logoutBtn" style="display:none;" onclick="logout()">Logout</a>
-</nav>
+    <a href="candidate-dashboard.html" id="profileBtn" class="nav-highlight" style="display:none">Profile</a>
+    <a href="#" id="logoutBtn" style="display:none" onclick="logout()">Logout</a>
+  </nav>
 </header>
 
-<!-- HERO -->
+<!-- ══════════ HERO ══════════ -->
 <section class="hero">
-  <h1>Your Vote. Your Voice. Your Power.</h1>
-
+  <div class="hero-eyebrow">🇮🇳 Swadeshi Digital Democracy</div>
+  <h1>Your Vote. Your Voice.<br/>Your Power.</h1>
   <p>
-    ChainSankalp is not just a voting platform — it’s a commitment to fairness,
-    transparency, and trust. By leveraging blockchain technology, we eliminate
-    manipulation and ensure that every vote you cast is secure and immutable.
+    ChainSankalp eliminates manipulation and ensures every vote is secure,
+    permanent, and tamper-proof — powered by Ethereum smart contracts.
   </p>
-
-  <p>
-    Whether it's student elections or organizational decisions,
-    ChainSankalp empowers you to participate in a system where
-    your voice truly matters.
-  </p>
-
-  <span class="tagline">🇮🇳 Built for Bharat | स्वदेशी डिजिटल लोकतंत्र</span>
-
+  <p>Built for student elections. Trusted by the blockchain.</p>
+  <span class="tagline">स्वदेशी डिजिटल लोकतंत्र &nbsp;|&nbsp; Made in Bharat</span>
   <div class="hero-buttons">
-    <button id="connectWallet" class="btn-primary">Connect Wallet</button>
-    <a href="#features" class="btn-secondary">Explore</a>
+    <button id="connectWallet" class="btn-primary" onclick="connectWallet()">Connect Wallet</button>
+    <a href="#features" class="btn-secondary">Explore Features ↓</a>
   </div>
-
-  <p id="walletAddress"></p>
+  <p id="walletAddress" style="display:none"></p>
 </section>
 
-<!-- ABOUT + FEATURES -->
+<!-- ══════════ FEATURES ══════════ -->
 <section id="features" class="features">
-
-  <section class="about">
-    <h2>Why ChainSankalp?</h2>
-
-    <p>
-      Traditional voting systems often face challenges such as lack of transparency,
-      delayed results, and vulnerability to manipulation. ChainSankalp addresses these
-      issues by introducing a decentralized and tamper-proof solution.
+  <div class="about">
+    <div class="section-label">Why ChainSankalp</div>
+    <h2 class="section-title">Democracy Meets Blockchain</h2>
+    <p class="section-desc">
+      Traditional voting systems face transparency gaps, delayed results, and
+      vulnerability to manipulation. ChainSankalp fixes all three — permanently.
     </p>
-
-    <p>
-      Every vote is recorded on the blockchain, making it permanent, verifiable,
-      and resistant to any unauthorized changes. This ensures trust not just
-      in the system, but in the outcome.
-    </p>
-
-    <p>
-      Designed especially for students, this platform bridges the gap between
-      technology and democracy — making participation simple, secure, and reliable.
-    </p>
-  </section>
-
-  <div class="card-container">
-    <div class="card">Your vote stays completely private and encrypted</div>
-    <div class="card">Once cast, your vote cannot be changed or deleted</div>
-    <div class="card">Instant and transparent result calculation</div>
-    <div class="card">Participate in voting from anywhere, anytime</div>
-    <div class="card">Blockchain ensures auditability without revealing identity</div>
-    <div class="card">Complete transparency with zero manipulation</div>
   </div>
 
+  <div class="card-container">
+    <div class="card">
+      <span class="card-icon">🔒</span>
+      <div class="card-title">Private & Encrypted</div>
+      Your vote stays completely private. Zero knowledge of who you voted for.
+    </div>
+    <div class="card">
+      <span class="card-icon">⛓</span>
+      <div class="card-title">Immutable Record</div>
+      Once cast, your vote is permanently written to the blockchain. Unchangeable.
+    </div>
+    <div class="card">
+      <span class="card-icon">⚡</span>
+      <div class="card-title">Instant Results</div>
+      Real-time transparent result calculation with zero human intervention.
+    </div>
+    <div class="card">
+      <span class="card-icon">🌐</span>
+      <div class="card-title">Vote Anywhere</div>
+      Participate from any device, any location — as long as you have MetaMask.
+    </div>
+    <div class="card">
+      <span class="card-icon">🧾</span>
+      <div class="card-title">Fully Auditable</div>
+      Anyone can verify the election results on-chain without revealing identities.
+    </div>
+    <div class="card">
+      <span class="card-icon">🛡️</span>
+      <div class="card-title">Zero Manipulation</div>
+      Smart contracts remove all human control over vote counting and outcomes.
+    </div>
+  </div>
 </section>
 
-<!-- SECURITY -->
+<!-- ══════════ SECURITY ══════════ -->
 <section id="security" class="security">
-  <h2>Security First</h2>
-
-  <p>
-    Security is the backbone of ChainSankalp. Each vote is processed through
-    smart contracts and recorded on a decentralized ledger, ensuring that
-    no single authority can alter the outcome.
+  <div class="section-label">Security</div>
+  <h2 class="section-title">Security Is The Foundation</h2>
+  <p class="section-desc">
+    Each vote flows through audited smart contracts and is recorded on a
+    decentralized ledger — no single authority can alter the outcome.
   </p>
-
-  <p>
-    Your identity is verified through PRN and wallet mapping, while your vote
-    remains anonymous — achieving the perfect balance between authentication
-    and privacy.
-  </p>
-
-  <p>
-    With cryptographic protection and blockchain immutability, 
-    your trust is not assumed — it is guaranteed.
+  <p class="section-desc" style="margin-top:14px">
+    Identity verified via PRN and wallet mapping. Vote stays anonymous.
+    Cryptographic protection guarantees your trust isn't assumed — it's earned.
   </p>
 </section>
 
-<!-- PROCESS -->
-<section class="process">
-  <h2>How It Works</h2>
-
-  <div class="card-container">
-    <div class="card">Register using your PRN (Voter ID)</div>
-    <div class="card">Connect your MetaMask wallet</div>
-    <div class="card">Identity is securely verified</div>
-    <div class="card">Cast your vote via smart contract</div>
-    <div class="card">Vote stored permanently on blockchain</div>
-    <div class="card">Results generated transparently</div>
+<!-- ══════════ HOW IT WORKS ══════════ -->
+<section id="how" class="process">
+  <div class="section-label">Process</div>
+  <h2 class="section-title">How It Works</h2>
+  <div class="process-steps">
+    <div class="step"><div class="step-num">1</div><div class="step-text">Register with your PRN (Voter ID)</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-text">Connect your MetaMask wallet</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-text">Identity is securely verified</div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-text">Cast your vote via smart contract</div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-text">Vote stored permanently on-chain</div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-text">Results generated transparently</div></div>
   </div>
 </section>
 
-<!-- SWADESHI -->
+<!-- ══════════ BHARAT ══════════ -->
 <section class="bharat">
-  <h2>Proudly Swadeshi</h2>
-
+  <div class="section-label" style="color:#ff9933">Swadeshi</div>
+  <h2 class="section-title">Proudly Made in Bharat</h2>
   <p>
-    Built in Bharat, for Bharat — ChainSankalp represents a step towards
-    strengthening digital democracy at the grassroots level.
+    Built in Bharat, for Bharat — ChainSankalp combines traditional democratic
+    values with modern blockchain technology, making participation simple,
+    secure, and accessible to every student.
   </p>
-
-  <p>
-    By combining traditional democratic values with modern blockchain
-    technology, we aim to create a system that is not only secure but
-    also accessible to every student.
-  </p>
-
-  <p>
-    Because true democracy begins when every voice is heard, respected,
-    and protected.
+  <p style="margin-top:14px">
+    Because true democracy begins when every voice is heard, respected, and protected.
   </p>
 </section>
 
-<!-- FOOTER -->
-<section class="footer-section">
-  <div class="footer-content">
-    <p>© 2026 ChainSankalp | Built with ❤️ in Bharat</p>
-    <p>Empowering every vote, every voice.</p>
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="footer-section">
+  <div>
+    <div class="footer-logo">⛓ ChainSankalp</div>
+    <div class="footer-content"><p>© 2026 ChainSankalp | Built with ❤️ in Bharat</p></div>
   </div>
-</section>
+  <div class="footer-links">
+    <a href="#features">Features</a>
+    <a href="#security">Security</a>
+    <a href="signin.html">Login</a>
+    <a href="signup.html">Register</a>
+  </div>
+</footer>
 
 <script src="js/app.js"></script>
-
 </body>
 </html>

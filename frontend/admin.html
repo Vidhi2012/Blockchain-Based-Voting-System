@@ -1,38 +1,293 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Admin Dashboard - ChainSankalp</title>
-    <link rel="stylesheet" href="css/admin.css"> <!-- ✅ SAME CSS -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard - ChainSankalp</title>
+  <link rel="stylesheet" href="css/admin.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet"/>
 </head>
-
 <body>
-    <nav class="navbar">
-        <div class="logo">⚡ Admin Panel</div>
-    
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="#" onclick="logout()" class="nav-btn">Logout</a>
-        </div>
-    </nav>
 
-    <div class="container">
-        <div class="dashboard-card">
-    
-            <h2>🧑‍💼 Admin Dashboard</h2>
-    
-            <h3>👥 Registered Users</h3>
-            <div id="userList"></div>
-    
-            <h3>🗳️ Candidates</h3>
-            <div id="candidateList"></div>
-    
-            <div class="bharat-tag">
-                🇮🇳 ChainSankalp Admin Panel
-            </div>
-    
-        </div>
+<div class="adm">
+
+  <!-- ========== SIDEBAR ========== -->
+  <div class="sidebar">
+    <div class="sidebar-logo">
+      <div class="chain">⛓ ChainSankalp</div>
+      <div class="sub">Admin Console</div>
     </div>
-<script src="js/admin.js"></script>
 
+    <div class="nav-section">Main</div>
+    <div class="nav-item active" onclick="showPanel('overview', this)">
+      <span class="nav-icon">◈</span> Overview
+    </div>
+    <div class="nav-item" onclick="showPanel('students', this)">
+      <span class="nav-icon">◎</span> Students
+    </div>
+    <div class="nav-item" onclick="showPanel('candidates', this)">
+      <span class="nav-icon">◉</span> Candidates
+    </div>
+    <div class="nav-item" onclick="showPanel('results', this)">
+      <span class="nav-icon">◈</span> Results
+    </div>
+
+    <div class="nav-section">Election</div>
+    <div class="nav-item" onclick="showPanel('settings', this)">
+      <span class="nav-icon">⚙</span> Settings
+    </div>
+    <div class="nav-item" onclick="showPanel('blockchain', this)">
+      <span class="nav-icon">⛓</span> Blockchain
+    </div>
+    <div class="nav-item" onclick="showPanel('audit', this)">
+      <span class="nav-icon">📋</span> Audit Log
+    </div>
+
+    <div class="nav-section">Site</div>
+    <div class="nav-item" onclick="window.location.href='index.html'">
+      <span class="nav-icon">🏠</span> Home
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="avatar-circle">AD</div>
+      <div>
+        <div class="avatar-name" id="adminName">Admin</div>
+        <div class="avatar-role">Super Admin</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== MAIN ========== -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="topbar-title" id="topbarTitle">Overview</div>
+      <div class="topbar-right">
+        <span class="badge-live" id="electionBadge">● Election Active</span>
+        <button class="icon-btn" title="Notifications">🔔</button>
+        <button class="icon-btn logout-icon" onclick="logout()" title="Logout">⇥</button>
+      </div>
+    </div>
+
+    <!-- ========== PANEL: OVERVIEW ========== -->
+    <div class="content" id="panel-overview">
+
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-label">Total Voters</div>
+          <div class="metric-val" id="m-voters">0</div>
+          <div class="metric-sub">registered students</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Votes Cast</div>
+          <div class="metric-val" id="m-votes">134</div>
+          <div class="metric-sub">54% turnout</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Candidates</div>
+          <div class="metric-val" id="m-cands">0</div>
+          <div class="metric-sub"><span class="dn" id="m-pending">0</span> awaiting approval</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Blocks Mined</div>
+          <div class="metric-val">41</div>
+          <div class="metric-sub">on Sepolia testnet</div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div>
+          <div class="panel" style="margin-bottom:16px">
+            <div class="panel-header">
+              <span class="panel-title">Pending Approvals</span>
+              <span class="panel-action" onclick="showPanel('candidates', document.querySelector('[onclick*=candidates]'))">View all →</span>
+            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th><th>PRN</th><th>Role</th><th>Status</th><th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="pendingTbody"></tbody>
+            </table>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <span class="panel-title">Live Vote Tally</span>
+              <span class="panel-action">Real-time</span>
+            </div>
+            <div id="tallyBars" style="padding:8px 0"></div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div class="panel">
+            <div class="panel-header">
+              <span class="panel-title">Election Control</span>
+            </div>
+            <div class="election-status"><span class="status-key">Phase</span><span class="status-val">Voting Open</span></div>
+            <div class="election-status bt"><span class="status-key">Ends</span><span class="status-val">Today, 5:00 PM</span></div>
+            <div class="election-status bt"><span class="status-key">Network</span><span class="status-val">Sepolia ✓</span></div>
+            <div class="election-status bt"><span class="status-key">Contract</span><span class="status-val prn">0x4f3c…d91a</span></div>
+            <div class="toggle-wrap">
+              <div class="toggle" id="elecToggle" onclick="toggleElection()"></div>
+              <div>
+                <div class="toggle-label" id="elecLabel">Voting Enabled</div>
+                <div class="toggle-sub">Click to pause election</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header"><span class="panel-title">Recent Activity</span></div>
+            <div id="activityFeed"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== PANEL: STUDENTS ========== -->
+    <div class="content hidden" id="panel-students">
+
+      <div class="dept-stats" id="deptCards"></div>
+      <div class="year-breakdown" id="yearCards"></div>
+
+      <div class="filters">
+        <span class="filter-label">Dept</span>
+        <div class="filter-group" id="deptChips"></div>
+        <span class="filter-label" style="margin-left:8px">Year</span>
+        <div class="filter-group" id="yearChips"></div>
+        <span class="filter-label" style="margin-left:8px">Role</span>
+        <div class="filter-group" id="roleChips"></div>
+        <div class="search-box">
+          <span>🔍</span>
+          <input type="text" placeholder="Search name / PRN..." id="searchInput" oninput="renderStudents()"/>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">Student Registry</span>
+          <span class="panel-count" id="rowCount"></span>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th><th>PRN</th><th>Dept</th><th>Year</th><th>Gender</th><th>Role</th><th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="studentTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ========== PANEL: CANDIDATES ========== -->
+    <div class="content hidden" id="panel-candidates">
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">All Candidates</span>
+          <span class="panel-count" id="candCount"></span>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th><th>PRN</th><th>Dept</th><th>Year</th><th>Role</th><th>Manifesto</th><th>Status</th><th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="candTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ========== PANEL: RESULTS ========== -->
+    <div class="content hidden" id="panel-results">
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">Election Results</span>
+          <span class="panel-action">Live</span>
+        </div>
+        <div id="resultsBars" style="padding:16px 0"></div>
+      </div>
+    </div>
+
+    <!-- ========== PANEL: SETTINGS ========== -->
+    <div class="content hidden" id="panel-settings">
+      <div class="panel" style="max-width:520px">
+        <div class="panel-header"><span class="panel-title">Election Settings</span></div>
+        <div style="padding:20px;display:flex;flex-direction:column;gap:16px">
+          <div class="setting-row">
+            <div>
+              <div class="setting-label">Election Title</div>
+              <div class="setting-sub">Displayed on all pages</div>
+            </div>
+            <input class="setting-input" type="text" value="Student Council Election 2026"/>
+          </div>
+          <div class="setting-row bt">
+            <div>
+              <div class="setting-label">Voting Start</div>
+              <div class="setting-sub">Date and time</div>
+            </div>
+            <input class="setting-input" type="datetime-local" value="2026-05-24T09:00"/>
+          </div>
+          <div class="setting-row bt">
+            <div>
+              <div class="setting-label">Voting End</div>
+              <div class="setting-sub">Date and time</div>
+            </div>
+            <input class="setting-input" type="datetime-local" value="2026-05-24T17:00"/>
+          </div>
+          <div class="setting-row bt">
+            <div>
+              <div class="setting-label">Allow Re-voting</div>
+              <div class="setting-sub">Students can change vote</div>
+            </div>
+            <div class="toggle-off"></div>
+          </div>
+          <div class="setting-row bt">
+            <div>
+              <div class="setting-label">Show Live Results</div>
+              <div class="setting-sub">Visible to all students</div>
+            </div>
+            <div class="toggle-on"></div>
+          </div>
+          <button class="save-btn" onclick="alert('Settings saved ✅')">Save Settings</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== PANEL: BLOCKCHAIN ========== -->
+    <div class="content hidden" id="panel-blockchain">
+      <div class="panel" style="max-width:520px">
+        <div class="panel-header"><span class="panel-title">Blockchain Info</span></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:0">
+          <div class="election-status"><span class="status-key">Network</span><span class="status-val">Sepolia Testnet</span></div>
+          <div class="election-status bt"><span class="status-key">Contract Address</span><span class="status-val prn">0x4f3c8a21...d91a</span></div>
+          <div class="election-status bt"><span class="status-key">Blocks Mined</span><span class="status-val">41</span></div>
+          <div class="election-status bt"><span class="status-key">Gas Used</span><span class="status-val">0.0042 ETH</span></div>
+          <div class="election-status bt"><span class="status-key">Last Tx Hash</span><span class="status-val prn">0xab91...f320</span></div>
+          <div class="election-status bt"><span class="status-key">Status</span><span class="status-val" style="color:#1D9E75">● Connected</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== PANEL: AUDIT LOG ========== -->
+    <div class="content hidden" id="panel-audit">
+      <div class="panel">
+        <div class="panel-header"><span class="panel-title">Audit Log</span></div>
+        <table class="table">
+          <thead>
+            <tr><th>Time</th><th>Event</th><th>PRN</th><th>Details</th></tr>
+          </thead>
+          <tbody id="auditTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /adm -->
+
+<script src="js/admin.js"></script>
 </body>
 </html>

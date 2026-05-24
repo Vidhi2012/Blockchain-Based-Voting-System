@@ -1,179 +1,76 @@
-// Store current wallet
-let currentAccount = "";
+let users = JSON.parse(localStorage.getItem("users")) || {};
 
-// =====================
-// CONNECT WALLET
-// =====================
-async function connectWallet() {
-    if (window.ethereum) {
-        try {
-            const accounts = await ethereum.request({
-                method: "eth_requestAccounts",
-            });
-            currentAccount = accounts[0];
-            alert("Wallet Connected: " + currentAccount);
-        } catch (err) {
-            alert("Connection Failed!");
-        }
-    } else {
-        alert("Please install MetaMask!");
-    }
-}
+document.addEventListener("DOMContentLoaded", () => {
 
-// =====================
-// SIGNUP LOGIC
-// =====================
-const signupForm = document.getElementById("signupForm");
+    // SIGNUP
+    const signupForm = document.getElementById("signupForm");
 
-if (signupForm) {
-    signupForm.addEventListener("submit", function (e) {
-        e.preventDefault();
+    if (signupForm) {
+        signupForm.addEventListener("submit", function (e) {
+            e.preventDefault();
 
-        // GET VALUES (CORRECT WAY)
-        const name = document.getElementById("name").value;
-        const prn = document.getElementById("prn").value;
-        const phone = document.getElementById("phone").value;
-        const email = document.getElementById("email").value;
-        const gender = document.getElementById("gender").value;
-        const department = document.getElementById("department").value;
-        const year = document.getElementById("year").value;
-        const role = document.getElementById("role").value;
-        const manifesto = document.getElementById("manifesto").value;
-        const achievements = document.getElementById("achievements").value;
-        const password = document.getElementById("password").value;
-
-        const file = document.getElementById("profilePic").files[0];
-
-        // VALIDATIONS
-        if (prn.length !== 14 || isNaN(prn)) {
-            alert("PRN must be 14 digits");
-            return;
-        }
-
-        if (phone.length !== 10 || isNaN(phone)) {
-            alert("Phone must be 10 digits");
-            return;
-        }
-
-        let users = JSON.parse(localStorage.getItem("users")) || {};
-
-        if (users[prn]) {
-            alert("User already exists!");
-            return;
-        }
-
-        // HANDLE IMAGE
-        const fileInput = document.getElementById("photo");
-
-fileInput.addEventListener("change", function () {
-    const file = fileInput.files[0];
-    const reader = new FileReader();
-
-    reader.onload = function () {
-        const base64Image = reader.result;
-
-        // Save in localStorage with user data
-        let user = JSON.parse(localStorage.getItem("loggedInUser"));
-        user.profilePhoto = base64Image;
-
-        localStorage.setItem("loggedInUser", JSON.stringify(user));
-    };
-
-    if (file) {
-        reader.readAsDataURL(file);
-    }
-});
-
-        // SAVE FUNCTION
-        function saveUser(profilePic) {
-            users[prn] = {
-                name,
-                prn,
-                phone,
-                email,
-                gender,
-                department,
-                year,
-                role,
-                manifesto,
-                achievements,
-                profilePic,
-                password,
-                wallet: currentAccount,
+            const user = {
+                name: document.getElementById("name").value,
+                prn: document.getElementById("prn").value,
+                phone: document.getElementById("phone").value,
+                email: document.getElementById("email").value,
+                gender: document.getElementById("gender").value,
+                department: document.getElementById("department").value,
+                year: document.getElementById("year").value,
+                role: document.getElementById("role").value,
+                manifesto: document.getElementById("manifesto").value,
+                achievements: document.getElementById("achievements").value,
+                password: document.getElementById("password").value,
+                profilePhoto: ""
             };
 
-            localStorage.setItem("users", JSON.stringify(users));
-
-            alert("Signup Successful ✅");
-
-            window.location.href = "signin.html";
-        }
-    });
-}
-
-// =====================
-// SIGNIN LOGIC (FIXED)
-// =====================
-const signinForm = document.getElementById("signinForm");
-
-if (signinForm) {
-    signinForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        const prn = document.getElementById("signin-prn").value;
-        const password = document.getElementById("signin-password").value;
-
-        let users = JSON.parse(localStorage.getItem("users")) || {};
-
-        if (!users[prn]) {
-            alert("User not found!");
-            return;
-        }
-
-        if (users[prn].password !== password) {
-            alert("Incorrect password!");
-            return;
-        }
-
-        // ✅ STORE LOGGED IN USER
-        localStorage.setItem("loggedInUser", JSON.stringify(users[prn]));
-
-        alert("Login Successful 🚀");
-
-        // ✅ ROLE-BASED REDIRECT (FIXED PART)
-        setTimeout(() => {
-            const user = users[prn];
-
-            if (user.role === "admin") {
-                window.location.href = "admin.html";
-            } else {
-                window.location.href = "index.html";
+            if (users[user.prn]) {
+                alert("User already exists");
+                return;
             }
-        }, 1000);
-    });
-}
-// =====================
-// FORGOT PASSWORD
-// =====================
-function forgotPassword() {
-    const prn = prompt("Enter your PRN:");
-    let users = JSON.parse(localStorage.getItem("users")) || {};
 
-    if (!users[prn]) {
-        alert("User not found!");
-        return;
+            users[user.prn] = user;
+
+            localStorage.setItem("users", JSON.stringify(users));
+            localStorage.setItem("loggedInUser", JSON.stringify(user));
+
+            window.location.href = "index.html";
+        });
     }
 
-    const newPass = prompt("Enter new password:");
+    // SIGNIN
+    document.getElementById("signinForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
     
-    if (!newPass) {
-        alert("Password cannot be empty!");
-        return;
-    }
-
-    users[prn].password = newPass;
-
-    localStorage.setItem("users", JSON.stringify(users));
-
-    alert("Password updated successfully ✅");
-}
+        const prn = document.getElementById("signin-prn").value.trim();
+        const password = document.getElementById("signin-password").value.trim();
+    
+        try {
+            const res = await fetch("http://localhost:5000/api/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ prn, password })
+            });
+    
+            const data = await res.json();
+    
+            if (res.ok) {
+    
+                // ✅ IMPORTANT: consistent key
+                localStorage.setItem("loggedInUser", JSON.stringify(data));
+    
+                alert("Login successful 🚀");
+                window.location.href = "index.html";
+    
+            } else {
+                alert(data.message || "Invalid credentials");
+            }
+    
+        } catch (err) {
+            console.log(err);
+            alert("Server error");
+        }
+    });
+});
