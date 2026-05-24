@@ -1,127 +1,150 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Sign Up - ChainSankalp</title>
-    <link rel="stylesheet" href="css/auth.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create Account — ChainSankalp</title>
+  <link rel="stylesheet" href="css/auth.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap" rel="stylesheet"/>
 </head>
-
 <body>
 
-<div class="auth-container">
-    <h2>Create Account</h2>
+  <!-- top bar -->
+  <div class="auth-topbar">
+    <a href="index.html" class="auth-logo">⛓ ChainSankalp</a>
+    <a href="signin.html" class="auth-topbar-link">Already registered? Sign in →</a>
+  </div>
+
+  <div class="auth-container">
+
+    <div class="auth-header">
+      <h2>Create Account</h2>
+      <p>Register to participate in your college election</p>
+    </div>
 
     <form id="signupForm">
 
-        <!-- ALL YOUR EXISTING FIELDS (UNCHANGED) -->
+      <!-- ── PERSONAL INFO ── -->
+      <div class="form-section-title">Personal Info</div>
 
-        <!-- Name -->
+      <div class="input-group">
+        <label>Full Name</label>
+        <input type="text" id="name" placeholder="e.g. Arjun Mehta" required/>
+      </div>
+
+      <div class="input-row">
         <div class="input-group">
-            <label>Full Name</label>
-            <input type="text" id="name" required>
+          <label>PRN Number</label>
+          <input type="text" id="prn" placeholder="14-digit PRN" maxlength="14" required/>
+        </div>
+        <div class="input-group">
+          <label>Phone Number</label>
+          <input type="tel" id="phone" placeholder="10-digit number" maxlength="10" required/>
+        </div>
+      </div>
+
+      <div class="input-row">
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="you@college.edu" required/>
+        </div>
+        <div class="input-group">
+          <label>Gender</label>
+          <select id="gender" required>
+            <option value="">Select</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- ── ACADEMIC INFO ── -->
+      <div class="form-section-title">Academic Info</div>
+
+      <div class="input-row">
+        <div class="input-group">
+          <label>Department</label>
+          <select id="department" required>
+            <option value="">Select Dept</option>
+            <option value="CSE">CSE</option>
+            <option value="IT">IT</option>
+            <option value="ETCE">ETCE</option>
+            <option value="ME">ME</option>
+            <option value="CE">CE</option>
+            <option value="AIML">AIML</option>
+            <option value="AR">AR</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>Year</label>
+          <select id="year" required>
+            <option value="">Select Year</option>
+            <option value="1">1st Year</option>
+            <option value="2">2nd Year</option>
+            <option value="3">3rd Year</option>
+            <option value="4">4th Year</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- ── CANDIDATE INFO (optional) ── -->
+      <div class="form-section-title">Candidate Info <span style="font-size:10px;color:#555;font-weight:400;letter-spacing:0;text-transform:none">(optional — only if contesting)</span></div>
+
+      <div class="input-group">
+        <label>Role</label>
+        <select id="role" required>
+          <option value="">Select Role</option>
+          <option value="voter">Voter (not contesting)</option>
+          <option value="LR">LR — Local Representative</option>
+          <option value="CS">CS — Class Secretary</option>
+          <option value="GS">GS — General Secretary</option>
+        </select>
+      </div>
+
+      <div id="candidateFields">
+        <div class="input-group">
+          <label>Manifesto</label>
+          <textarea id="manifesto" placeholder="What will you do if elected?"></textarea>
         </div>
 
-        <!-- PRN -->
         <div class="input-group">
-            <label>PRN Number</label>
-            <input type="text" id="prn" maxlength="14" required>
+          <label>Achievements</label>
+          <textarea id="achievements" placeholder="Academic, sports, cultural achievements..."></textarea>
         </div>
 
-        <!-- Phone -->
         <div class="input-group">
-            <label>Phone Number</label>
-            <input type="tel" id="phone" maxlength="10" required>
+          <label>Profile Photo</label>
+          <input type="file" id="profilePic" accept="image/*"/>
         </div>
+      </div>
 
-        <!-- Email -->
+      <!-- ── SECURITY ── -->
+      <div class="form-section-title">Security</div>
+
+      <div class="input-row">
         <div class="input-group">
-            <label>Email</label>
-            <input type="email" id="email" required>
+          <label>Password</label>
+          <input type="password" id="password" placeholder="Create a password" required/>
         </div>
-
-        <!-- Gender -->
         <div class="input-group">
-            <label>Gender</label>
-            <select id="gender" required>
-                <option value="">Select</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-            </select>
+          <label>Confirm Password</label>
+          <input type="password" id="confirmPassword" placeholder="Repeat password" required/>
         </div>
+      </div>
 
-        <!-- Department -->
-        <div class="input-group">
-            <label>Department</label>
-            <select id="department" required>
-                <option value="">Select</option>
-                <option value="CSE">CSE</option>
-                <option value="IT">IT</option>
-                <option value="ETCE">ETCE</option>
-                <option value="ME">ME</option>
-                <option value="CE">CE</option>
-                <option value="AIML">AIML</option>
-                <option value="AR">AR</option>
-            </select>
-        </div>
+      <button type="submit" class="auth-btn">Create Account</button>
 
-        <!-- Year -->
-        <div class="input-group">
-            <label>Year</label>
-            <select id="year" required>
-                <option value="">Select</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-            </select>
-        </div>
-
-        <!-- Role -->
-        <div class="input-group">
-            <label>Role</label>
-            <select id="role" required>
-                <option value="">Select Role</option>
-                <option value="LR">LR</option>
-                <option value="CS">CS</option>
-                <option value="GS">GS</option>
-            </select>
-        </div>
-
-        <!-- Manifesto -->
-        <div class="input-group">
-            <label>Manifesto</label>
-            <textarea id="manifesto"></textarea>
-        </div>
-
-        <!-- Achievements -->
-        <div class="input-group">
-            <label>Achievements</label>
-            <textarea id="achievements"></textarea>
-        </div>
-
-        <!-- Profile Photo -->
-        <div class="input-group">
-            <label>Profile Photo</label>
-            <input type="file" id="profilePic" accept="image/*">
-        </div>
-
-        <!-- Password -->
-        <div class="input-group">
-            <label>Password</label>
-            <input type="password" id="password" required>
-        </div>
-
-        <button type="submit" class="auth-btn">Sign Up</button>
     </form>
 
-    <!-- Signin Link -->
     <div class="switch-link">
-        Already have an account? <a href="signin.html">Sign In</a>
+      Already have an account? <a href="signin.html">Sign in</a>
     </div>
 
-</div>
+    <div class="bharat-tag">🇮🇳 ChainSankalp &nbsp;|&nbsp; Secure Blockchain Voting</div>
+
+  </div>
 
 <script src="js/auth.js"></script>
-
 </body>
 </html>

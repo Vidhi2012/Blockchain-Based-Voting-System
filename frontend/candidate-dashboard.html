@@ -1,63 +1,114 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Candidate Dashboard</title>
-
-    <!-- ✅ SAME GLOBAL CSS -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/candidate-dashboard.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Profile — ChainSankalp</title>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap" rel="stylesheet"/>
 </head>
-
 <body>
 
-    <!-- 🔝 NAVBAR -->
-    <div class="navbar">
-        <h2 id="logoText" class="logo">⛓ ChainSankalp</h2>
-    
-        <div class="nav-links">
-            <nav>
-                <a href="index.html">Home</a>
-                <a href="#features">Features</a>
-                <a href="#security">Security</a>
-                <a href="candidate-dashboard.html" id="profileLink" style="display:none;">Profile</a>
-                <a href="#" id="logoutLink" style="display:none;">Logout</a>
-              </nav>
+<!-- ══════════ NAVBAR ══════════ -->
+<header class="navbar">
+  <a href="index.html" class="logo">⛓ ChainSankalp</a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="index.html#features">Features</a>
+    <a href="index.html#security">Security</a>
+    <a href="candidate-dashboard.html" class="nav-highlight" id="profileLink">Profile</a>
+    <a href="#" id="logoutLink" onclick="doLogout(event)">Logout</a>
+  </nav>
+</header>
+
+<!-- ══════════ DASHBOARD ══════════ -->
+<div class="dashboard-wrapper">
+
+  <div class="dashboard-header">
+    <h2>My Profile</h2>
+    <p id="dashSubtitle">Candidate Dashboard</p>
+  </div>
+
+  <div class="dashboard-grid">
+
+    <!-- ── LEFT: Profile Card ── -->
+    <div class="dash-card profile-card">
+
+      <div class="profile-img-wrap">
+        <img id="profileImg" class="profile-img" src="default.png" alt="Profile Photo"/>
+      </div>
+
+      <div class="profile-name" id="candidateName">—</div>
+      <div class="profile-prn" id="profilePrn">PRN: —</div>
+
+      <div id="statusBadge" class="status-badge pending">
+        <span>⏳</span> <span id="statusText">Pending Approval</span>
+      </div>
+
+      <div class="profile-meta">
+        <div class="meta-row">
+          <span class="meta-key">Position</span>
+          <span class="meta-val" id="position">—</span>
         </div>
+        <div class="meta-row">
+          <span class="meta-key">Department</span>
+          <span class="meta-val" id="department">—</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Year</span>
+          <span class="meta-val" id="year">—</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Gender</span>
+          <span class="meta-val" id="gender">—</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Email</span>
+          <span class="meta-val" id="email" style="font-size:11px">—</span>
+        </div>
+      </div>
+
     </div>
 
-    <!-- 🔽 DASHBOARD -->
-    <div class="dashboard-container">
+    <!-- ── RIGHT: Details Card ── -->
+    <div class="dash-card details-card">
 
-        <h2>🚀 Candidate Dashboard</h2>
+      <!-- Achievements -->
+      <div class="details-section">
+        <div class="details-label">🏆 Achievements</div>
+        <p class="details-text" id="achievements">No achievements added yet.</p>
+      </div>
 
-        <div id="candidateCard" class="dashboard-card">
+      <!-- Manifesto -->
+      <div class="details-section">
+        <div class="details-label">📜 Manifesto</div>
+        <p class="details-text" id="manifesto">No manifesto added yet.</p>
+      </div>
 
-            <!-- ✅ PROFILE IMAGE -->
-            <img id="profileImg" width="120" height="120" style="border-radius:50%;" />
-        
-            <h2 id="candidateName"></h2>
-        
-            <span id="status"></span>
-        
-            <p><b>Position:</b> <span id="position"></span></p>
-            <p><b>Department:</b> <span id="department"></span></p>
-            <p><b>Year:</b> <span id="year"></span></p>
-        
-            <h3>🏆 Achievements</h3>
-            <p id="achievements"></p>
-        
-            <h3>📜 Manifesto</h3>
-            <p id="manifesto"></p>
-        
+      <!-- Wallet -->
+      <div class="details-section">
+        <div class="details-label">🦊 Wallet</div>
+        <div class="wallet-row">
+          <span class="wallet-addr" id="walletAddr">Not connected</span>
+          <span class="wallet-status" id="walletStatus">Disconnected</span>
         </div>
+      </div>
+
+      <!-- Voting Stats (shown if approved) -->
+      <div class="details-section" id="voteStatsSection" style="display:none">
+        <div class="details-label">📊 Vote Count</div>
+        <div style="display:flex;align-items:center;gap:16px;margin-top:8px">
+          <div style="font-size:42px;font-weight:700;background:linear-gradient(90deg,#6c63ff,#00d4ff);-webkit-background-clip:text;color:transparent" id="voteCount">—</div>
+          <div style="font-size:13px;color:#666">votes received<br/>on the blockchain</div>
+        </div>
+      </div>
 
     </div>
 
-    <!-- ✅ IMPORTANT: LOAD app.js FIRST -->
-    <script src="js/app.js"></script>
+  </div>
+</div>
 
-    <!-- Then dashboard logic -->
-    <script src="js/candidate-dashboard.js"></script>
-
+<script src="js/app.js"></script>
+<script src="js/candidate-dashboard.js"></script>
 </body>
 </html>

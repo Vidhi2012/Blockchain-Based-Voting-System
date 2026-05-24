@@ -1,50 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Sign In - ChainSankalp</title>
-    <link rel="stylesheet" href="css/auth.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign In — ChainSankalp</title>
+  <link rel="stylesheet" href="css/auth.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap" rel="stylesheet"/>
 </head>
-
 <body>
 
-<div class="auth-container">
-    <h2>Welcome Back 👋</h2>
-    <p>Login using your PRN (Voter ID)</p>
+  <!-- top bar -->
+  <div class="auth-topbar">
+    <a href="index.html" class="auth-logo">⛓ ChainSankalp</a>
+    <a href="signup.html" class="auth-topbar-link">New here? Create account →</a>
+  </div>
+
+  <div class="auth-container">
+
+    <div class="auth-header">
+      <h2>Welcome back 👋</h2>
+      <p>Sign in with your PRN to continue</p>
+    </div>
+
+    <!-- wallet connect hint -->
+    <div class="wallet-connect-row">
+      <span class="wc-icon">🦊</span>
+      <div class="wc-text">
+        <div class="wc-title">MetaMask Required</div>
+        <div class="wc-sub">Make sure your wallet is connected before voting</div>
+      </div>
+      <button class="wallet-btn" onclick="connectWallet()">Connect</button>
+    </div>
 
     <form id="signinForm">
 
-        <!-- PRN -->
-        <div class="input-group">
-            <label>PRN Number</label>
-            <input type="text" id="signin-prn" placeholder="Enter 14-digit PRN" maxlength="14" required>
-        </div>
+      <div class="input-group">
+        <label>PRN Number</label>
+        <input type="text" id="signin-prn" placeholder="Enter your 14-digit PRN" maxlength="14" required/>
+      </div>
 
-        <!-- Password -->
-        <div class="input-group">
-            <label>Password</label>
-            <input type="password" id="signin-password" placeholder="Enter password" required>
-        </div>
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="signin-password" placeholder="Enter your password" required/>
+      </div>
 
-        <!-- Forgot Password -->
-        <div class="switch-link">
-            <a href="#" onclick="forgotPassword()">Forgot Password?</a>
-        </div>
+      <div class="forgot-link">
+        <a href="#" onclick="forgotPassword(); return false;">Forgot password?</a>
+      </div>
 
-        <!-- Button -->
-        <button type="submit" class="auth-btn">Sign In</button>
+      <button type="submit" class="auth-btn">Sign In</button>
+
     </form>
 
-    <!-- Signup Link -->
     <div class="switch-link">
-        New here? <a href="signup.html">Create Account</a>
+      Don't have an account? <a href="signup.html">Create one</a>
     </div>
 
-    <div class="bharat-tag">
-        🇮🇳 Made in Bharat | Secure Blockchain Voting
-    </div>
-</div>
+    <div class="bharat-tag">🇮🇳 ChainSankalp &nbsp;|&nbsp; Secure Blockchain Voting</div>
+
+  </div>
 
 <script src="js/auth.js"></script>
-
 </body>
 </html>

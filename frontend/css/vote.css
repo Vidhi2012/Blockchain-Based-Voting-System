@@ -1,0 +1,527 @@
+/* =============================================
+   ChainSankalp — vote.css
+   ============================================= */
+
+/* ── wrapper ── */
+.vote-wrapper {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 100px 24px 80px;
+  }
+  
+  /* ── page header ── */
+  .vote-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  
+  .vote-title {
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 700;
+    background: linear-gradient(135deg, #ffffff 0%, #a09aff 50%, #00d4ff 100%);
+    -webkit-background-clip: text;
+    color: transparent;
+    margin: 10px 0 12px;
+  }
+  
+  .vote-sub {
+    font-size: 13px;
+    color: #666;
+    max-width: 520px;
+    margin: 0 auto 20px;
+    line-height: 1.7;
+  }
+  
+  /* ── meta strip ── */
+  .vote-meta-strip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .meta-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    font-size: 12px;
+    color: #888;
+  }
+  
+  .chip-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  
+  .dot-green { background: #1D9E75; }
+  .dot-amber { background: #e9a63a; }
+  .dot-red   { background: #e05555; }
+  .dot-blue  { background: #378ADD; }
+  
+  /* ── progress bar ── */
+  .vote-progress-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 48px;
+    gap: 0;
+  }
+  
+  .vp-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .vp-circle {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    transition: all 0.3s;
+  }
+  
+  .vp-label {
+    font-size: 10px;
+    color: #555;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  
+  .vp-line {
+    width: 60px;
+    height: 2px;
+    background: rgba(255,255,255,0.07);
+    margin: 0 4px;
+    margin-bottom: 22px;
+    transition: background 0.3s;
+  }
+  
+  /* active step */
+  .vp-step.active .vp-circle {
+    background: linear-gradient(135deg, #6c63ff, #00d4ff);
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 0 18px rgba(108,99,255,0.4);
+  }
+  
+  .vp-step.active .vp-label { color: #a09aff; }
+  
+  /* done step */
+  .vp-step.done .vp-circle {
+    background: rgba(29,158,117,0.2);
+    border-color: rgba(29,158,117,0.4);
+    color: #1D9E75;
+  }
+  
+  .vp-step.done .vp-label { color: #1D9E75; }
+  .vp-line.done { background: rgba(29,158,117,0.4); }
+  
+  /* ── vote step panel ── */
+  .vote-step { animation: fadeUp 0.3s ease; }
+  
+  .hidden { display: none !important; }
+  
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* ── step header ── */
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  
+  .step-role-badge {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: rgba(108,99,255,0.12);
+    border: 1px solid rgba(108,99,255,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #a09aff;
+    flex-shrink: 0;
+  }
+  
+  .step-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #eee;
+  }
+  
+  .step-desc {
+    font-size: 12px;
+    color: #666;
+    margin-top: 3px;
+  }
+  
+  /* ── candidates grid ── */
+  .candidates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  
+  /* ── candidate card ── */
+  .cand-card {
+    background: #0f0f1e;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 20px 18px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    position: relative;
+    user-select: none;
+  }
+  
+  .cand-card:hover {
+    border-color: rgba(108,99,255,0.35);
+    background: rgba(108,99,255,0.05);
+    transform: translateY(-3px);
+  }
+  
+  .cand-card.selected {
+    border-color: #6c63ff;
+    background: rgba(108,99,255,0.1);
+    box-shadow: 0 0 24px rgba(108,99,255,0.2);
+  }
+  
+  /* selected tick */
+  .cand-card.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 12px; right: 14px;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6c63ff, #00d4ff);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 22px;
+    text-align: center;
+  }
+  
+  .cand-photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255,255,255,0.08);
+    margin-bottom: 12px;
+  }
+  
+  .cand-card.selected .cand-photo {
+    border-color: #6c63ff;
+  }
+  
+  .cand-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #eee;
+    margin-bottom: 3px;
+  }
+  
+  .cand-meta {
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .cand-manifesto {
+    font-size: 12px;
+    color: #777;
+    line-height: 1.55;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* no candidates placeholder */
+  .no-candidates {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #555;
+    font-size: 13px;
+    background: rgba(255,255,255,0.02);
+    border: 1px dashed rgba(255,255,255,0.07);
+    border-radius: 14px;
+  }
+  
+  /* ── step nav ── */
+  .step-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  
+  .btn-next {
+    padding: 11px 24px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, #6c63ff, #00d4ff);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+    box-shadow: 0 0 20px rgba(108,99,255,0.25);
+  }
+  
+  .btn-next:hover { opacity: 0.85; transform: translateY(-1px); }
+  
+  .btn-back {
+    padding: 11px 20px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: transparent;
+    color: #888;
+    font-size: 13px;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  
+  .btn-back:hover { background: rgba(255,255,255,0.05); color: #ccc; }
+  
+  /* ── review grid ── */
+  .review-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  
+  .review-card {
+    background: #0f0f1e;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 18px 16px;
+  }
+  
+  .review-role {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #6c63ff;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  
+  .review-photo {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(108,99,255,0.3);
+    margin-bottom: 10px;
+  }
+  
+  .review-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #eee;
+    margin-bottom: 3px;
+  }
+  
+  .review-meta { font-size: 11px; color: #666; }
+  
+  .review-none {
+    font-size: 13px;
+    color: #555;
+    font-style: italic;
+  }
+  
+  /* ── blockchain notice ── */
+  .blockchain-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 18px;
+    background: rgba(108,99,255,0.06);
+    border: 1px solid rgba(108,99,255,0.15);
+    border-radius: 12px;
+    margin-bottom: 28px;
+  }
+  
+  .notice-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .notice-title { font-size: 13px; font-weight: 600; color: #ccc; margin-bottom: 4px; }
+  .notice-desc  { font-size: 12px; color: #666; line-height: 1.6; }
+  
+  /* ── submit button ── */
+  .btn-submit {
+    padding: 13px 28px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, #1D9E75, #00d4ff);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+    box-shadow: 0 0 24px rgba(29,158,117,0.3);
+  }
+  
+  .btn-submit:hover   { opacity: 0.85; transform: translateY(-1px); }
+  .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  
+  /* ── success screen ── */
+  .success-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 0 40px;
+  }
+  
+  .success-icon  { font-size: 64px; margin-bottom: 20px; }
+  .success-title {
+    font-size: 28px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #1D9E75, #00d4ff);
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-bottom: 10px;
+  }
+  .success-sub { font-size: 14px; color: #666; margin-bottom: 32px; }
+  
+  /* ── tx card ── */
+  .tx-card {
+    width: 100%;
+    max-width: 540px;
+    background: #0f0f1e;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    text-align: left;
+  }
+  
+  .tx-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 12px 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  
+  .tx-key {
+    font-size: 11px;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    flex-shrink: 0;
+    padding-top: 1px;
+  }
+  
+  .tx-val {
+    font-size: 12px;
+    color: #ccc;
+    font-family: 'Courier New', monospace;
+    word-break: break-all;
+    text-align: right;
+  }
+  
+  /* ── success choices ── */
+  .success-choices {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 32px;
+  }
+  
+  .sc-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(29,158,117,0.08);
+    border: 1px solid rgba(29,158,117,0.2);
+    border-radius: 20px;
+    font-size: 12px;
+    color: #1D9E75;
+  }
+  
+  .sc-role {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    opacity: 0.7;
+  }
+  
+  /* ── success actions ── */
+  .success-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  /* already voted overlay */
+  .voted-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(11,11,20,0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    backdrop-filter: blur(8px);
+  }
+  
+  .voted-box {
+    background: #0f0f1e;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    padding: 40px 36px;
+    text-align: center;
+    max-width: 400px;
+  }
+  
+  .voted-box h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #eee;
+    margin: 16px 0 10px;
+  }
+  
+  .voted-box p { font-size: 13px; color: #666; line-height: 1.7; }
+  
+  .voted-box .btn-primary {
+    margin-top: 24px;
+    font-family: 'Poppins', sans-serif;
+  }

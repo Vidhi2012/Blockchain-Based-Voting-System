@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cast Your Vote — ChainSankalp</title>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="stylesheet" href="css/vote.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- ══════════ NAVBAR ══════════ -->
+<header class="navbar">
+  <a href="index.html" class="logo">⛓ ChainSankalp</a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="vote.html" class="nav-highlight">Vote</a>
+    <a href="candidate-dashboard.html" id="profileBtn" style="display:none">Profile</a>
+    <a href="#" id="logoutBtn" style="display:none" onclick="logout()">Logout</a>
+  </nav>
+</header>
+
+<!-- ══════════ MAIN ══════════ -->
+<div class="vote-wrapper">
+
+  <!-- page header -->
+  <div class="vote-header">
+    <div class="section-label">Student Council Election 2026</div>
+    <h1 class="vote-title">Cast Your Vote</h1>
+    <p class="vote-sub">Select one candidate per position. Your vote is final and recorded on the blockchain.</p>
+
+    <!-- wallet + status strip -->
+    <div class="vote-meta-strip">
+      <div class="meta-chip" id="walletChip">
+        <span class="chip-dot dot-amber"></span>
+        <span id="walletChipText">Wallet not connected</span>
+      </div>
+      <div class="meta-chip">
+        <span class="chip-dot dot-green"></span>
+        <span>Election Active</span>
+      </div>
+      <div class="meta-chip" id="alreadyVotedChip" style="display:none">
+        <span class="chip-dot dot-red"></span>
+        <span>Already Voted</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PROGRESS BAR ── -->
+  <div class="vote-progress-wrap">
+    <div class="vp-step active" id="step-LR">
+      <div class="vp-circle">1</div>
+      <div class="vp-label">LR</div>
+    </div>
+    <div class="vp-line"></div>
+    <div class="vp-step" id="step-CS">
+      <div class="vp-circle">2</div>
+      <div class="vp-label">CS</div>
+    </div>
+    <div class="vp-line"></div>
+    <div class="vp-step" id="step-GS">
+      <div class="vp-circle">3</div>
+      <div class="vp-label">GS</div>
+    </div>
+    <div class="vp-line"></div>
+    <div class="vp-step" id="step-confirm">
+      <div class="vp-circle">4</div>
+      <div class="vp-label">Confirm</div>
+    </div>
+  </div>
+
+  <!-- ══ STEP 1: LR ══ -->
+  <div class="vote-step" id="panel-LR">
+    <div class="step-header">
+      <div class="step-role-badge">LR</div>
+      <div>
+        <div class="step-title">Local Representative</div>
+        <div class="step-desc">Represents your class in student council meetings</div>
+      </div>
+    </div>
+    <div class="candidates-grid" id="grid-LR"></div>
+    <div class="step-nav">
+      <div></div>
+      <button class="btn-next" onclick="goNext('LR','CS')">Next: Class Secretary →</button>
+    </div>
+  </div>
+
+  <!-- ══ STEP 2: CS ══ -->
+  <div class="vote-step hidden" id="panel-CS">
+    <div class="step-header">
+      <div class="step-role-badge">CS</div>
+      <div>
+        <div class="step-title">Class Secretary</div>
+        <div class="step-desc">Manages academic and administrative affairs of the class</div>
+      </div>
+    </div>
+    <div class="candidates-grid" id="grid-CS"></div>
+    <div class="step-nav">
+      <button class="btn-back" onclick="goBack('CS','LR')">← Back</button>
+      <button class="btn-next" onclick="goNext('CS','GS')">Next: General Secretary →</button>
+    </div>
+  </div>
+
+  <!-- ══ STEP 3: GS ══ -->
+  <div class="vote-step hidden" id="panel-GS">
+    <div class="step-header">
+      <div class="step-role-badge">GS</div>
+      <div>
+        <div class="step-title">General Secretary</div>
+        <div class="step-desc">Leads the student council and represents all students</div>
+      </div>
+    </div>
+    <div class="candidates-grid" id="grid-GS"></div>
+    <div class="step-nav">
+      <button class="btn-back" onclick="goBack('GS','CS')">← Back</button>
+      <button class="btn-next" onclick="goNext('GS','confirm')">Review & Confirm →</button>
+    </div>
+  </div>
+
+  <!-- ══ STEP 4: CONFIRM ══ -->
+  <div class="vote-step hidden" id="panel-confirm">
+    <div class="step-header">
+      <div class="step-role-badge" style="background:rgba(29,158,117,0.15);color:#1D9E75;border-color:rgba(29,158,117,0.3)">✓</div>
+      <div>
+        <div class="step-title">Review Your Choices</div>
+        <div class="step-desc">Double-check before submitting. Votes cannot be changed after submission.</div>
+      </div>
+    </div>
+
+    <div class="review-grid" id="reviewGrid"></div>
+
+    <div class="blockchain-notice">
+      <span class="notice-icon">⛓</span>
+      <div>
+        <div class="notice-title">Blockchain Submission</div>
+        <div class="notice-desc">
+          Your vote will be submitted as a transaction on the Ethereum network via MetaMask.
+          A small gas fee may apply on mainnet. On Sepolia testnet it is free.
+        </div>
+      </div>
+    </div>
+
+    <div class="step-nav">
+      <button class="btn-back" onclick="goBack('confirm','GS')">← Edit Choices</button>
+      <button class="btn-submit" id="submitBtn" onclick="submitVote()">
+        <span id="submitBtnText">Submit Vote via MetaMask</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══ SUCCESS SCREEN ══ -->
+  <div class="vote-step hidden" id="panel-success">
+    <div class="success-screen">
+      <div class="success-icon">✅</div>
+      <h2 class="success-title">Vote Cast Successfully!</h2>
+      <p class="success-sub">Your vote has been permanently recorded on the blockchain.</p>
+
+      <div class="tx-card">
+        <div class="tx-row">
+          <span class="tx-key">Transaction Hash</span>
+          <span class="tx-val" id="txHash">—</span>
+        </div>
+        <div class="tx-row">
+          <span class="tx-key">Block Number</span>
+          <span class="tx-val" id="txBlock">—</span>
+        </div>
+        <div class="tx-row">
+          <span class="tx-key">Network</span>
+          <span class="tx-val">Sepolia Testnet</span>
+        </div>
+        <div class="tx-row">
+          <span class="tx-key">Status</span>
+          <span class="tx-val" style="color:#1D9E75">Confirmed ✓</span>
+        </div>
+        <div class="tx-row">
+          <span class="tx-key">Voter PRN</span>
+          <span class="tx-val" id="txPrn">—</span>
+        </div>
+        <div class="tx-row" style="border:none">
+          <span class="tx-key">Timestamp</span>
+          <span class="tx-val" id="txTime">—</span>
+        </div>
+      </div>
+
+      <div class="success-choices" id="successChoices"></div>
+
+      <div class="success-actions">
+        <a href="index.html" class="btn-secondary" style="display:inline-flex">← Back to Home</a>
+        <button class="btn-primary" onclick="viewOnExplorer()">View on Etherscan ↗</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /vote-wrapper -->
+
+<script src="js/app.js"></script>
+<script src="js/vote.js"></script>
+</body>
+</html>
