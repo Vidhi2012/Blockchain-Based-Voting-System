@@ -1,0 +1,277 @@
+/* =============================================
+   ChainSankalp — voter-dashboard.css
+   ============================================= */
+
+   .vd-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 100px 24px 80px;
+  }
+  
+  /* ── top profile card ── */
+  .vd-top {
+    margin-bottom: 40px;
+  }
+  
+  .vd-profile-card {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  
+  .vd-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid transparent;
+    background:
+      linear-gradient(var(--bg-secondary), var(--bg-secondary)) padding-box,
+      linear-gradient(135deg, #6c63ff, #00d4ff) border-box;
+    flex-shrink: 0;
+  }
+  
+  .vd-info { flex: 1; min-width: 180px; }
+  
+  .vd-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+  
+  .vd-prn {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: 'Courier New', monospace;
+    margin-bottom: 10px;
+  }
+  
+  .vd-meta-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .vd-chip {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  
+  /* vote status */
+  .vd-vote-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 16px 24px;
+    border-radius: 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    min-width: 120px;
+    text-align: center;
+  }
+  
+  .vs-icon  { font-size: 28px; }
+  .vs-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  
+  .vd-vote-status.voted {
+    background: rgba(29,158,117,0.08);
+    border-color: rgba(29,158,117,0.25);
+  }
+  
+  .vd-vote-status.voted .vs-label { color: #1D9E75; }
+  
+  /* ── election chips ── */
+  .election-chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .e-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 10px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    font-size: 12px;
+  }
+  
+  .e-chip-role {
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+  }
+  
+  .e-chip-name { color: var(--text-primary); font-weight: 500; }
+  
+  .e-chip-status {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+  
+  .e-status-active   { background: rgba(29,158,117,0.12);  color: #1D9E75; border: 1px solid rgba(29,158,117,0.25); }
+  .e-status-upcoming { background: rgba(108,99,255,0.12);  color: #a09aff; border: 1px solid rgba(108,99,255,0.25); }
+  .e-status-ended    { background: rgba(255,255,255,0.05); color: #666;    border: 1px solid rgba(255,255,255,0.08); }
+  
+  .e-chip-time { font-size: 11px; color: var(--text-muted); }
+  
+  /* ── candidate sections ── */
+  .vd-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+  
+  .vd-section {}
+  
+  .vd-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  
+  .vd-section-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .vd-role-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(108,99,255,0.12);
+    border: 1px solid rgba(108,99,255,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #a09aff;
+    flex-shrink: 0;
+  }
+  
+  .vd-section-title { font-size: 17px; font-weight: 700; color: var(--text-primary); }
+  .vd-section-desc  { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  
+  .vd-section-badge {
+    font-size: 10px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+  
+  /* candidate cards */
+  .vd-cand-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 14px;
+  }
+  
+  .vd-cand-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 16px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  
+  .vd-cand-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-3px);
+  }
+  
+  .vd-cand-photo {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border);
+    margin-bottom: 12px;
+  }
+  
+  .vd-cand-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+  }
+  
+  .vd-cand-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+  
+  .vd-cand-manifesto {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .vd-voted-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #1D9E75;
+    background: rgba(29,158,117,0.1);
+    border: 1px solid rgba(29,158,117,0.2);
+    padding: 3px 8px;
+    border-radius: 20px;
+  }
+  
+  .vd-no-cands {
+    text-align: center;
+    padding: 32px;
+    color: var(--text-muted);
+    font-size: 13px;
+    background: var(--bg-card);
+    border: 1px dashed var(--border);
+    border-radius: 14px;
+  }
+  
+  /* ── light theme ── */
+  [data-theme="light"] .vd-profile-card,
+  [data-theme="light"] .vd-vote-status,
+  [data-theme="light"] .e-chip,
+  [data-theme="light"] .vd-cand-card {
+    background: #ffffff;
+    border-color: rgba(0,0,0,0.08);
+  }
+  
+  [data-theme="light"] .vd-chip {
+    background: rgba(0,0,0,0.04);
+    border-color: rgba(0,0,0,0.08);
+  }

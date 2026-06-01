@@ -8,6 +8,26 @@ const selections = { LR: null, CS: null, GS: null };
 const ROLES      = ["LR", "CS", "GS"];
 let   lastTxHash = null;
 
+
+// =============================================
+//  ELECTION SCHEDULE HELPERS
+// =============================================
+function getSchedule() {
+  const saved = localStorage.getItem("electionSchedule");
+  return saved ? JSON.parse(saved) : { LR: {}, CS: {}, GS: {} };
+}
+
+function isElectionActive(role) {
+  const s = getSchedule()[role];
+  if (!s || !s.start || !s.end) return false;
+  const now = new Date();
+  return now >= new Date(s.start) && now <= new Date(s.end);
+}
+
+function activeRoles() {
+  return ROLES.filter(r => isElectionActive(r));
+}
+
 // ── init ──────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -52,6 +72,41 @@ function loadCandidates() {
   ROLES.forEach(role => {
     const grid   = document.getElementById("grid-" + role);
     if (!grid) return;
+
+    // Check if this election is currently active
+    if (!isElectionActive(role)) {
+      const s = getSchedule()[role];
+      const now = new Date();
+      let msg = "This election has not been scheduled yet.";
+
+      if (s && s.start) {
+        const start = new Date(s.start);
+        const end   = new Date(s.end);
+        if (now < start) {
+          msg = `Voting opens on ${start.toLocaleString("en-IN", { day:"2-digit", month:"short", hour:"2-digit", minute:"2-digit", hour12:true })}`;
+        } else if (now > end) {
+          msg = `Voting for this position ended on ${end.toLocaleString("en-IN", { day:"2-digit", month:"short", hour:"2-digit", minute:"2-digit", hour12:true })}`;
+        }
+      }
+
+      grid.innerHTML = `
+        <div class="no-candidates">
+          <div style="font-size:24px;margin-bottom:10px">🔒</div>
+          ${msg}
+        </div>`;
+
+      // disable next button for this step
+      const panel = document.getElementById("panel-" + role);
+      if (panel) {
+        const nextBtn = panel.querySelector(".btn-next");
+        if (nextBtn) {
+          nextBtn.disabled = true;
+          nextBtn.style.opacity = "0.4";
+          nextBtn.title = "Election not active";
+        }
+      }
+      return;
+    }
 
     const roleCands = candidates.filter(c => c.role === role);
 

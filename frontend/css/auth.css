@@ -1,6 +1,8 @@
 /* =============================================
    ChainSankalp — Auth Pages (signin, signup)
+   Uses theme variables from styles.css
    ============================================= */
+
 
    *, *::before, *::after {
     margin: 0; padding: 0;
@@ -13,8 +15,8 @@
   }
   
   body {
-    background: #0b0b14;
-    color: #ddd;
+    background: var(--bg-primary);
+    color: var(--text-primary);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -69,19 +71,19 @@
   
   .auth-topbar-link {
     font-size: 12px;
-    color: #555;
+    color: var(--text-muted);
     text-decoration: none;
     transition: color 0.2s;
   }
   
-  .auth-topbar-link:hover { color: #aaa; }
+  .auth-topbar-link:hover { color: var(--text-secondary); }
   
   /* ── container ── */
   .auth-container {
     width: 100%;
     max-width: 480px;
-    background: #0f0f1e;
-    border: 1px solid rgba(255,255,255,0.08);
+    background: var(--bg-secondary);
+    border: 1px solid var(--input-border);
     border-radius: 18px;
     padding: 36px 36px 32px;
     position: relative;
@@ -112,7 +114,7 @@
   
   .auth-header p {
     font-size: 13px;
-    color: #666;
+    color: var(--text-muted);
   }
   
   /* ── section divider (signup) ── */
@@ -150,7 +152,7 @@
   .input-group label {
     display: block;
     font-size: 11px;
-    color: #666;
+    color: var(--text-muted);
     font-weight: 500;
     letter-spacing: 0.5px;
     margin-bottom: 7px;
@@ -162,10 +164,10 @@
   .input-group textarea {
     width: 100%;
     padding: 11px 14px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
     border-radius: 10px;
-    color: #ddd;
+    color: var(--text-primary);
     font-size: 13px;
     font-family: 'Poppins', sans-serif;
     outline: none;
@@ -175,7 +177,7 @@
   
   .input-group input::placeholder,
   .input-group textarea::placeholder {
-    color: #444;
+    color: var(--text-muted);
   }
   
   .input-group input:focus,
@@ -194,8 +196,8 @@
   }
   
   .input-group select option {
-    background: #0f0f1e;
-    color: #ddd;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
   }
   
   .input-group textarea {
@@ -207,7 +209,7 @@
   /* ── file input ── */
   .input-group input[type="file"] {
     padding: 8px 12px;
-    color: #666;
+    color: var(--text-muted);
     cursor: pointer;
   }
   
@@ -266,7 +268,7 @@
     margin-top: 20px;
     text-align: center;
     font-size: 13px;
-    color: #555;
+    color: var(--text-muted);
   }
   
   .switch-link a {
@@ -282,7 +284,7 @@
     margin-top: 20px;
     text-align: center;
     font-size: 11px;
-    color: #444;
+    color: var(--text-muted);
   }
   
   /* ── wallet connect row ── */
@@ -306,12 +308,12 @@
   .wallet-connect-row .wc-title {
     font-size: 13px;
     font-weight: 500;
-    color: #ccc;
+    color: var(--text-secondary);
   }
   
   .wallet-connect-row .wc-sub {
     font-size: 11px;
-    color: #555;
+    color: var(--text-muted);
   }
   
   .wallet-btn {
@@ -334,3 +336,60 @@
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+  
+  /* ── light theme overrides for auth pages ── */
+  [data-theme="light"] body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+  }
+  
+  [data-theme="light"] .auth-container {
+    background: var(--bg-secondary);
+    border-color: var(--border);
+    box-shadow: 0 0 30px rgba(108,99,255,0.08);
+  }
+  
+  [data-theme="light"] .auth-header h2 { color: var(--text-primary); }
+  [data-theme="light"] .auth-header p  { color: var(--text-muted); }
+  
+  [data-theme="light"] .input-group label { color: var(--text-muted); }
+  
+  [data-theme="light"] .input-group input,
+  [data-theme="light"] .input-group select,
+  [data-theme="light"] .input-group textarea {
+    background: var(--input-bg);
+    border-color: var(--input-border);
+    color: var(--text-primary);
+  }
+  
+  [data-theme="light"] .switch-link  { color: var(--text-muted); }
+  [data-theme="light"] .bharat-tag   { color: var(--text-muted); }
+  [data-theme="light"] .auth-topbar-link { color: var(--text-muted); }
+  
+  [data-theme="light"] .wallet-connect-row {
+    background: rgba(108,99,255,0.05);
+    border-color: rgba(108,99,255,0.15);
+  }
+  
+  [data-theme="light"] .wc-title { color: var(--text-primary); }
+  [data-theme="light"] .wc-sub   { color: var(--text-muted); }
+  
+  /* theme toggle in auth topbar */
+  #themeToggle {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--input-bg);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.15s;
+  }
+  
+  #themeToggle:hover {
+    background: rgba(108,99,255,0.1);
+    transform: rotate(15deg);
+  }

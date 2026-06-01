@@ -57,6 +57,7 @@ function showPanel(name, navEl) {
 
   // re-render dynamic panels when visited
   if (name === "students")   renderStudents();
+  if (name === "settings")   buildSettingsPanel();
   if (name === "candidates") renderCandidates();
 }
 
@@ -399,6 +400,118 @@ function buildAudit() {
       <td style="color:#888">${l.detail}</td>
     </tr>
   `).join("");
+}
+
+
+// =============================================
+//  SETTINGS PANEL — per-election schedule
+// =============================================
+function buildSettingsPanel() {
+  const el = document.getElementById("settingsPanelContent");
+  if (!el) return;
+
+  const saved    = JSON.parse(localStorage.getItem("electionSchedule") || "{}");
+  const roles    = ["LR","CS","GS"];
+  const fullName = { LR:"Ladies Representative", CS:"Cultural Secretary", GS:"General Secretary" };
+
+  el.innerHTML = `
+    <div style="max-width:580px">
+      <div class="panel" style="margin-bottom:18px">
+        <div class="panel-header"><span class="panel-title">Election Schedule</span></div>
+        <div style="padding:20px;display:flex;flex-direction:column;gap:0">
+          ${roles.map(role => {
+            const s = saved[role] || {};
+            return `
+              <div style="padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.05)">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+                  <div style="width:36px;height:36px;border-radius:10px;background:rgba(108,99,255,0.12);
+                    border:1px solid rgba(108,99,255,0.25);display:flex;align-items:center;
+                    justify-content:center;font-size:12px;font-weight:700;color:#a09aff">${role}</div>
+                  <div>
+                    <div style="font-size:13px;font-weight:600;color:#ddd">${fullName[role]}</div>
+                    <div style="font-size:11px;color:#555" id="status-${role}"></div>
+                  </div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                  <div>
+                    <div style="font-size:10px;color:#555;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Start</div>
+                    <input class="setting-input" type="datetime-local"
+                      id="start-${role}" value="${s.start || ""}"
+                      onchange="updateScheduleStatus('${role}')"/>
+                  </div>
+                  <div>
+                    <div style="font-size:10px;color:#555;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">End</div>
+                    <input class="setting-input" type="datetime-local"
+                      id="end-${role}" value="${s.end || ""}"
+                      onchange="updateScheduleStatus('${role}')"/>
+                  </div>
+                </div>
+              </div>`;
+          }).join("")}
+          <div style="padding-top:16px">
+            <button class="save-btn" onclick="saveSchedule()">Save Schedule</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header"><span class="panel-title">General Settings</span></div>
+        <div style="padding:20px;display:flex;flex-direction:column;gap:0">
+          <div class="setting-row">
+            <div><div class="setting-label">Election Title</div><div class="setting-sub">Shown on all pages</div></div>
+            <input class="setting-input" type="text" id="electionTitle"
+              value="${localStorage.getItem('electionTitle') || 'Student Council Election 2026'}"/>
+          </div>
+          <div class="setting-row bt">
+            <div><div class="setting-label">Show Live Results</div><div class="setting-sub">Visible to all students</div></div>
+            <div class="toggle-on"></div>
+          </div>
+          <div style="padding-top:16px">
+            <button class="save-btn" onclick="saveGeneralSettings()">Save General Settings</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  // update status labels
+  roles.forEach(r => updateScheduleStatus(r));
+}
+
+function updateScheduleStatus(role) {
+  const startVal = document.getElementById("start-" + role)?.value;
+  const endVal   = document.getElementById("end-"   + role)?.value;
+  const label    = document.getElementById("status-" + role);
+  if (!label) return;
+
+  if (!startVal || !endVal) { label.textContent = "Not scheduled"; return; }
+
+  const now   = new Date();
+  const start = new Date(startVal);
+  const end   = new Date(endVal);
+
+  if (now < start) label.textContent = "⏳ Upcoming";
+  else if (now > end) label.textContent = "✅ Ended";
+  else label.textContent = "● Active now";
+}
+
+function saveSchedule() {
+  const roles    = ["LR","CS","GS"];
+  const schedule = {};
+  roles.forEach(role => {
+    schedule[role] = {
+      start: document.getElementById("start-" + role)?.value || null,
+      end:   document.getElementById("end-"   + role)?.value || null,
+    };
+  });
+  localStorage.setItem("electionSchedule", JSON.stringify(schedule));
+  alert("Schedule saved ✅");
+  roles.forEach(r => updateScheduleStatus(r));
+}
+
+function saveGeneralSettings() {
+  const title = document.getElementById("electionTitle")?.value;
+  if (title) localStorage.setItem("electionTitle", title);
+  alert("Settings saved ✅");
 }
 
 // =============================================
