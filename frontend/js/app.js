@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (user.role === "admin") {
           window.location.href = "admin.html";
         } else {
-          window.location.href = "voter-dashboard.html";
+          window.location.href = "voter_dashboard.html";
         }
       };
     }
