@@ -108,7 +108,7 @@
   .auth-header h2 {
     font-size: 24px;
     font-weight: 700;
-    color: #eee;
+    color: var(--text-primary);
     margin-bottom: 6px;
   }
   
@@ -122,7 +122,7 @@
     font-size: 10px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: #6c63ff;
+    color: var(--accent-solid);
     font-weight: 600;
     margin: 24px 0 14px;
     display: flex;
@@ -164,8 +164,8 @@
   .input-group textarea {
     width: 100%;
     padding: 11px 14px;
+    border-color: var(--accent-solid);
     background: var(--input-bg);
-    border: 1px solid var(--input-border);
     border-radius: 10px;
     color: var(--text-primary);
     font-size: 13px;
@@ -183,7 +183,7 @@
   .input-group input:focus,
   .input-group select:focus,
   .input-group textarea:focus {
-    border-color: #6c63ff;
+    border-color: #100999;
     background: rgba(108,99,255,0.06);
   }
   
@@ -215,8 +215,8 @@
   
   .input-group input[type="file"]::-webkit-file-upload-button {
     background: rgba(108,99,255,0.15);
-    border: 1px solid rgba(108,99,255,0.3);
-    color: #a09aff;
+    color: var(--accent-solid);
+    border: 1px solid var(--input-border);
     border-radius: 6px;
     padding: 4px 12px;
     font-size: 11px;
@@ -319,9 +319,9 @@
   .wallet-btn {
     padding: 6px 14px;
     border-radius: 8px;
-    border: 1px solid rgba(0,212,255,0.3);
-    background: rgba(0,212,255,0.1);
-    color: #00d4ff;
+    background: rgba(108,99,255,0.1);
+    color: var(--accent-solid);
+    border: 1px solid var(--input-border);
     font-size: 11px;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
@@ -338,10 +338,6 @@
   ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
   
   /* ── light theme overrides for auth pages ── */
-  [data-theme="light"] body {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-  }
   
   [data-theme="light"] .auth-container {
     background: var(--bg-secondary);
@@ -367,7 +363,7 @@
   [data-theme="light"] .auth-topbar-link { color: var(--text-muted); }
   
   [data-theme="light"] .wallet-connect-row {
-    background: rgba(108,99,255,0.05);
+    background: rgba(1, 0, 11, 0.05);
     border-color: rgba(108,99,255,0.15);
   }
   
